@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- 状态栏高度 -->
+    <dimen name="top_view_bar_height">48dp</dimen>
+    <dimen name="horizontal_spacing0">0dp</dimen>
+    <dimen name="corners_selector_radius">14dp</dimen>
+    <dimen name="dp_2dp">2dp</dimen>
+
+</resources>

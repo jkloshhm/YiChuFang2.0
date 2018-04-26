@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:orientation="horizontal"
+    android:paddingBottom="13.5dp"
+    android:paddingTop="13.5dp">
+
+    <TextView
+        android:id="@+id/tv_item_mname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/chat"
+        android:textColor="@color/gray_content_color"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_item_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/chat"
+        android:textColor="@color/gray_content_color"
+        android:textSize="14sp" />
+
+</RelativeLayout>

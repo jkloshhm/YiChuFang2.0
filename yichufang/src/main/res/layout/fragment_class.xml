@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/ll_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ProgressBar
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+        <TextView
+            android:text="@string/text_loading"
+            android:textSize="15sp"
+            android:paddingLeft="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_parent_class"
+        android:visibility="gone"
+        android:layout_width="105dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/lv_parent_class"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="@null"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_children_class"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/gray_class_background_f5f5f5"
+        android:orientation="vertical">
+
+        <com.guojian.weekcook.utils.GridViewWithHeaderAndFooter
+            android:id="@+id/lv_children_class"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fadingEdge="vertical"
+            android:horizontalSpacing="20dp"
+            android:numColumns="2"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:scrollbars="none"
+            android:verticalSpacing="20dp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+

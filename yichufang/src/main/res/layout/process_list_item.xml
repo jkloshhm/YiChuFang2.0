@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
+
+
+    <LinearLayout
+        android:paddingTop="6dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:id="@+id/iv_item_process_img"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/image_demo"
+            android:text="@string/chat" />
+
+        <TextView
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/tv_item_process_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="你家暗藏看看囡囡案件你"
+            android:textColor="@color/gray_content_color"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_steps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+</RelativeLayout>
+
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="false" android:state_focused="false" android:state_pressed="false" android:state_selected="false">
+        <shape>
+            <stroke android:width="@dimen/dp_2dp" android:color="@color/red_theme" />
+            <solid android:color="@color/white" />
+            <corners android:bottomLeftRadius="@dimen/corners_selector_radius" android:topLeftRadius="@dimen/corners_selector_radius" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <stroke android:width="@dimen/dp_2dp" android:color="@color/red_theme" />
+            <solid android:color="@color/red_theme" />
+            <corners android:bottomLeftRadius="@dimen/corners_selector_radius" android:topLeftRadius="@dimen/corners_selector_radius" />
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape>
+            <stroke android:width="@dimen/dp_2dp" android:color="@color/red_theme" />
+            <solid android:color="@color/red_theme" />
+            <corners android:bottomLeftRadius="@dimen/corners_selector_radius" android:topLeftRadius="@dimen/corners_selector_radius" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape>
+            <stroke android:width="@dimen/dp_2dp" android:color="@color/red_theme" />
+            <solid android:color="@color/red_theme" />
+            <corners android:bottomLeftRadius="@dimen/corners_selector_radius" android:topLeftRadius="@dimen/corners_selector_radius" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingLeft="40dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="20dp"
+    android:orientation="horizontal">
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_settings_my_cache"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+</LinearLayout>

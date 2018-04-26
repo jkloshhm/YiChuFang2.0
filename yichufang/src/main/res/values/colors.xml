@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FB6269</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FB6269</color>
+
+    <color name="red_theme">#FB6269</color>
+    <color name="red_edit_background">#f2c4c5</color>
+    <color name="red_children_background">#bfbfbf</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_00FFFFFF">#00FFFFFF</color>
+    <color name="black_00000000">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="gray_class_background_f5f5f5">#F5F5F5</color>
+    <color name="gray_mean_line">#DBDBDB</color>
+    <color name="gray_children_text">#666666</color>
+    <color name="gray_search_hint">#AAAAAA</color>
+    <color name="gray_me_line">#E5E5E5</color>
+    <color name="gray_share_line">#f4f4f4</color>
+    <color name="item_color">#ffffff</color>
+    <color name="item_click_color">#aae2e2e2</color>
+    <color name="gray">#999999</color>
+    <color name="gray_585953">#585953</color>
+    <color name="gray_content_color">#333333</color>
+    <color name="gray_fff7f7">#fff7f7</color>
+    <color name="gray_content_color_333333">#333333</color>
+    <color name="red_fb6269">#fb6269</color>
+    <color name="gray_cccccc">#CCCCCC</color>
+    <color name="red_f0f0f3">#CCCCCC</color>
+    <color name="gray_cccccc3">#CCCCCC</color>
+    <color name="gray_cccccc4">#CCCCCC</color>
+
+
+    <color name="red_auto_play_background">#22bebebe</color>
+    <color name="colorPrimary1">#3F51B5</color>
+    <color name="colorPrimaryDark1">#303F9F</color>
+    <color name="colorAccent1">#FF4081</color>
+    <color name="red">#fb6269</color>
+    <color name="green1">#45C01A</color>
+    <color name="gray0">#999999</color>
+    <color name="selected_parent_color">#ff4b35</color>
+    <color name="gray1">#ece9e9</color>
+    <color name="gray2">#f2f1f1</color>
+    <color name="gray_mean_background">#FCFCFC</color>
+
+
+    <color name="recording_current_shot_text">#ffffffff</color>
+    <color name="gray___">#ffd3d3d3</color>
+    <color name="black___">#ff000000</color>
+    <color name="Green">#ff00ff00</color>
+    <color name="Red">#ffff0000</color>
+    <color name="Blue">#ff0000ff</color>
+    <color name="white___">#ffffffff</color>
+    <color name="textcolor">#555555</color>
+    <color name="contcolor">#555555</color>
+    <color name="backbg">#48C728</color>
+    <color name="backbgtest">#FFFFFF</color>
+    <color name="passBg">#0058DD</color>
+
+
+
+
+</resources>

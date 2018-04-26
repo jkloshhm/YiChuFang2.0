@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.guojian.weekcook">
+
+    <!-- Include next permission if you want to allow UIL to cache images on SD card -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon512"
+        android:label="@string/app_name"
+        tools:replace="android:name">
+        <meta-data
+            android:name="com.alibaba.apigateway.appKey"
+            android:value="23495613" />
+        <meta-data
+            android:name="com.alibaba.apigateway.appSecret"
+            android:value="c26f88a392275100e8649faea8b641ce" />
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.CookListActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.RecipeDetailsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CollectionActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.MyInformationActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.MySettingsActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.HeadImageShowerActivity"
+            android:theme="@style/AppTheme_black" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.WelcomeScreenActivity"
+            android:theme="@style/AppTheme_welcome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ProcessLargeImgActivity"
+            android:theme="@style/AppTheme_black" />
+
+        <!--
+            ATTENTION: This was auto-generated to add Google Play services to your project for
+            App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme_red"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.ShareActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/share_activity_theme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".activity.AboutAppActivity" />
+        <activity android:name=".activity.GratuityActivity"
+            android:theme="@style/AppTheme_red"/>
+    </application>
+
+</manifest>

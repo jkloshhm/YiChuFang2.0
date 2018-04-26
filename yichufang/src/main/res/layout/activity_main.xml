@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_mean_line" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_search"
+            style="@style/style_RadioButton"
+            android:checked="true"
+            android:drawableTop="@drawable/rb_search_selector"
+            android:text="@string/chat" />
+
+        <RadioButton
+            android:id="@+id/rb_class"
+            style="@style/style_RadioButton"
+            android:drawableTop="@drawable/rb_class_selector"
+            android:text="@string/contacts" />
+
+        <RadioButton
+            android:id="@+id/rb_me"
+            style="@style/style_RadioButton"
+            android:drawableTop="@drawable/rb_me_selector"
+            android:text="@string/me" />
+    </RadioGroup>
+
+
+</LinearLayout>
