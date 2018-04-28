@@ -88,9 +88,9 @@
         <RadioButton
             android:id="@+id/btn_alipay"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="36dp"
             android:layout_weight="1"
-            android:background="@drawable/alipay_corners_selector"
+            android:background="@drawable/shape_corners_alipay_selector"
             android:button="@null"
             android:gravity="center"
             android:text="支付宝"
@@ -99,12 +99,11 @@
             android:textSize="14sp" />
 
         <RadioButton
-            android:layout_marginLeft="@dimen/dp_5"
             android:id="@+id/btn_wechat"
             android:layout_width="0dp"
             android:layout_height="36dp"
             android:layout_weight="1"
-            android:background="@drawable/radiobutton_background"
+            android:background="@drawable/shape_corners_wechat_selector"
             android:button="@null"
             android:gravity="center"
             android:text="微信"
