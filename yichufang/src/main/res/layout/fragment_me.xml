@@ -234,7 +234,7 @@
         android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"

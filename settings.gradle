@@ -1,1 +1,1 @@
-include ':app', 'yichufang'
+include  'yichufang'

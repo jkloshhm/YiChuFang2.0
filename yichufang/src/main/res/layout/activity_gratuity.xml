@@ -44,7 +44,7 @@
                 android:id="@+id/tv_cook_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="打赏程序员哥哥"
+                android:text="打赏我们"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -66,45 +66,55 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="34dp"
-        android:layout_marginRight="34dp"
-        android:layout_marginTop="35dp"
-        android:background="@mipmap/pay_tips_background">
+        android:layout_marginTop="36dp"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
             android:text="如果觉得我们的App做的不错，欢迎打赏~" />
     </LinearLayout>
 
-    <LinearLayout
-        android:gravity="center"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="54dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="36dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:text="支付宝"
+        <RadioButton
+            android:id="@+id/btn_alipay"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
             android:background="@drawable/alipay_corners_selector"
-            android:gravity="center"/>
+            android:button="@null"
+            android:gravity="center"
+            android:text="支付宝"
+            android:checked="true"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="170dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+        <RadioButton
+            android:layout_marginLeft="@dimen/dp_5"
+            android:id="@+id/btn_wechat"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
             android:text="微信"
-            android:background="@drawable/wechat_corners_selector"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="14sp" />
+    </RadioGroup>
 
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 
 
 </LinearLayout>

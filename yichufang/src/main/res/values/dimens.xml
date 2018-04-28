@@ -6,6 +6,8 @@
     <dimen name="top_view_bar_height">48dp</dimen>
     <dimen name="horizontal_spacing0">0dp</dimen>
     <dimen name="corners_selector_radius">14dp</dimen>
-    <dimen name="dp_2dp">2dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_1">1dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
 
 </resources>

@@ -64,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:text="回首页"
                 android:textColor="@color/white"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 
