@@ -5,6 +5,7 @@
     <color name="colorAccent">#FB6269</color>
 
     <color name="red_theme">#FB6269</color>
+    <color name="red_theme_higher">#f74049</color>
     <color name="red_edit_background">#f2c4c5</color>
     <color name="red_children_background">#bfbfbf</color>
     <color name="white">#FFFFFFFF</color>
