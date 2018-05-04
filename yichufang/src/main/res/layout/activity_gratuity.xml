@@ -76,21 +76,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="如果觉得我们的APP做的不错，欢迎打赏~" />
+            android:text="如果觉得我们的APP做的不错，欢迎打赏~"
+            android:textSize="13sp" />
     </LinearLayout>
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_marginLeft="67dp"
+        android:layout_marginRight="67dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/btn_alipay"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@drawable/shape_corners_alipay_selector"
             android:button="@null"
@@ -98,12 +99,12 @@
             android:gravity="center"
             android:text="支付宝"
             android:textColor="@color/radiobutton_textcolor"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/btn_wechat"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="-2dp"
             android:layout_weight="1"
             android:background="@drawable/shape_corners_wechat_selector"
@@ -111,43 +112,43 @@
             android:gravity="center"
             android:text="微信"
             android:textColor="@color/radiobutton_textcolor"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
     </RadioGroup>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_32"
+        android:layout_width="224dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginBottom="@dimen/dp_24"
         android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@color/gray_ebebeb"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_alipay_qr"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@mipmap/alipay_qr" />
+            android:layout_width="220dp"
+            android:layout_height="233dp"
+            android:src="@mipmap/qr_alipay" />
 
-        <ImageView
-            android:id="@+id/iv_alipay_"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
-            android:src="@mipmap/alipay_logo" />
 
     </LinearLayout>
 
-<Button
-    android:layout_gravity="center"
-    android:layout_marginTop="@dimen/dp_32"
-    android:layout_marginLeft="36dp"
-    android:layout_marginRight="36dp"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:text="保存到相册"
-    android:textColor="@color/white"
-    android:textSize="16sp"
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/gratuity_button_background_selector"
+        android:text="保存到相册"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
-    android:background="@drawable/gratuity_button_background_selector"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="保存二维码至相册，用支付宝扫码即可完成赞赏"
+        android:textSize="12sp" />
 
 </LinearLayout>

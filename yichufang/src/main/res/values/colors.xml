@@ -47,6 +47,7 @@
 
     <color name="recording_current_shot_text">#ffffffff</color>
     <color name="gray___">#ffd3d3d3</color>
+    <color name="gray_ebebeb">#ebebeb</color>
     <color name="black___">#ff000000</color>
     <color name="Green">#ff00ff00</color>
     <color name="Red">#ffff0000</color>
