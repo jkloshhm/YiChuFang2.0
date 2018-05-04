@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <!--边框-->
+            <stroke android:width="@dimen/dp_1" android:color="@color/red_theme" />
+            <!-- 填充 -->
+            <solid android:color="@color/red_theme" />
+            <!-- 圆角 -->
+            <corners android:radius="@dimen/dp_32" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <!--边框-->
+            <stroke android:width="@dimen/dp_1" android:color="@color/red_theme" />
+            <!-- 填充 -->
+            <solid android:color="@color/red_theme_higher" />
+            <!-- 圆角 -->
+            <corners android:radius="@dimen/dp_32" />
+        </shape>
+
+    </item>
+</selector>
