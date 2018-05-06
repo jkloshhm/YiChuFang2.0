@@ -27,7 +27,7 @@
             android:paddingRight="20dp">
 
             <ImageView
-                android:id="@+id/bn_back_gratuity"
+                android:id="@+id/btn_back_gratuity"
                 android:layout_width="9dp"
                 android:layout_height="16.5dp"
                 android:background="@mipmap/cook_back_white" />

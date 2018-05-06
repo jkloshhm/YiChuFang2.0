@@ -25,7 +25,7 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gratuity);
-        mBackButton = findViewById(R.id.bn_back_gratuity);
+        mBackButton = findViewById(R.id.btn_back_gratuity);
         mAlipayButton = findViewById(R.id.btn_alipay);
         mWeChatButton = findViewById(R.id.btn_wechat);
         mSaveImageButton = findViewById(R.id.btn_save_image);
@@ -38,8 +38,17 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.bn_back_gratuity:
+            case R.id.btn_back_gratuity:
                 finish();
+                break;
+            case R.id.btn_alipay:
+                //支付宝
+                break;
+            case R.id.btn_wechat:
+                //微信
+                break;
+            case R.id.btn_save_image:
+                //保存照片
                 break;
             default:
                 break;
