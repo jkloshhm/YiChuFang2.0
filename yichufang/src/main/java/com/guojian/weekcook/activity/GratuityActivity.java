@@ -43,9 +43,13 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btn_alipay:
                 //支付宝
+                mAlipayButton.setChecked(true);
+                mWeChatButton.setChecked(false);
                 break;
             case R.id.btn_wechat:
                 //微信
+                mAlipayButton.setChecked(false);
+                mWeChatButton.setChecked(true);
                 break;
             case R.id.btn_save_image:
                 //保存照片
