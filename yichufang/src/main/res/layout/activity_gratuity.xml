@@ -81,6 +81,7 @@
     </LinearLayout>
 
     <RadioGroup
+        android:id="@+id/radioGroup_qr_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="67dp"
@@ -97,7 +98,7 @@
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:text="支付宝"
+            android:text=""
             android:textColor="@color/radiobutton_textcolor"
             android:textSize="15sp" />
 
@@ -118,19 +119,26 @@
     <LinearLayout
         android:layout_width="224dp"
         android:layout_height="237dp"
-        android:layout_marginTop="@dimen/dp_24"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:gravity="center"
         android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_24"
         android:background="@color/gray_ebebeb"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_alipay_qr"
             android:layout_width="220dp"
             android:layout_height="233dp"
-            android:src="@mipmap/qr_alipay" />
+            android:src="@mipmap/qr_alipay"
+            android:visibility="gone"/>
 
+        <ImageView
+            android:id="@+id/iv_wechat_qr"
+            android:layout_width="220dp"
+            android:layout_height="233dp"
+            android:src="@mipmap/qr_wechat"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -145,7 +153,16 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/tv_wechat_qr_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_8"
+        android:text="保存二维码至相册，用支付宝扫码即可完成赞赏"
+        android:textSize="12sp" />
 
+    <TextView
+        android:id="@+id/tv_alipay_qr_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
