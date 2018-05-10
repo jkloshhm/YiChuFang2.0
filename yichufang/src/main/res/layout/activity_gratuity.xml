@@ -90,7 +90,7 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/btn_alipay"
+            android:id="@+id/btn_wechat"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -98,12 +98,12 @@
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:text=""
+            android:text="微信"
             android:textColor="@color/radiobutton_textcolor"
             android:textSize="15sp" />
 
         <RadioButton
-            android:id="@+id/btn_wechat"
+            android:id="@+id/btn_alipay"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginLeft="-2dp"
@@ -111,7 +111,7 @@
             android:background="@drawable/shape_corners_wechat_selector"
             android:button="@null"
             android:gravity="center"
-            android:text="微信"
+            android:text="支付宝"
             android:textColor="@color/radiobutton_textcolor"
             android:textSize="15sp" />
     </RadioGroup>
@@ -138,7 +138,7 @@
             android:layout_width="220dp"
             android:layout_height="233dp"
             android:src="@mipmap/qr_wechat"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
 
@@ -158,8 +158,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_8"
-        android:text="保存二维码至相册，用支付宝扫码即可完成赞赏"
-        android:textSize="12sp" />
+        android:text="保存二维码至相册，用微信扫码即可完成赞赏"
+        android:textSize="12sp"
+        android:visibility="visible"/>
 
     <TextView
         android:id="@+id/tv_alipay_qr_tips"
@@ -168,6 +169,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_8"
         android:text="保存二维码至相册，用支付宝扫码即可完成赞赏"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="gone"/>
 
 </LinearLayout>
