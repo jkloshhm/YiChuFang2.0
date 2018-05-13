@@ -25,6 +25,7 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
     private TextView mWeChatQrTips;
     private TextView mAlipayQrTips;
     private Button mSaveImageButton;
+    private boolean mIsWechat = true;
 
 
     @Override
@@ -57,6 +58,7 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
                 mWeChatQr.setVisibility(View.VISIBLE);
                 mAlipayQrTips.setVisibility(View.GONE);
                 mWeChatQrTips.setVisibility(View.VISIBLE);
+                mIsWechat = true;
                 break;
             case R.id.btn_alipay:
                 //支付宝
@@ -64,9 +66,15 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
                 mWeChatQr.setVisibility(View.GONE);
                 mAlipayQrTips.setVisibility(View.VISIBLE);
                 mWeChatQrTips.setVisibility(View.GONE);
+                mIsWechat = false;
                 break;
             case R.id.btn_save_image:
                 //保存照片
+                if(mIsWechat){
+
+                }else{
+
+                }
                 break;
             default:
                 break;
