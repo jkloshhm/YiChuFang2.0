@@ -150,7 +150,8 @@
         android:background="@drawable/gratuity_button_background_selector"
         android:text="保存到相册"
         android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
 
     <TextView
         android:id="@+id/tv_wechat_qr_tips"
