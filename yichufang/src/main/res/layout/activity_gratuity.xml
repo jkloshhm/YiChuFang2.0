@@ -151,7 +151,7 @@
         android:text="保存到相册"
         android:textColor="@color/white"
         android:textSize="15sp"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
+        style="?android:attr/borderlessButtonStyle" />
 
     <TextView
         android:id="@+id/tv_wechat_qr_tips"

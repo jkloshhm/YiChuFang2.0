@@ -96,13 +96,12 @@ public class GratuityActivity extends AppCompatActivity implements View.OnClickL
         //Bitmap mBitmap = ((BitmapDrawable) getResources().getDrawable(res)).getBitmap();
         Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), res);
 
-
         String path = Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_DCIM + File.separator + "Camera";
         File fileDir = new File(path);
         if (!fileDir.exists()) {
             fileDir.mkdir();
         }
-        String fileName = "YiChuFang" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date(System.currentTimeMillis())) + ".png";
+        String fileName = "YiChuFang" + new SimpleDateFormat("_yyyyMMdd_HHmmss").format(new Date(System.currentTimeMillis())) + ".png";
         File file = new File(path, fileName);
         FileOutputStream fileOutputStream = null;
         try {
