@@ -9,13 +9,13 @@ apply from: 'tinker-support.gradle'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.guojian.weekcook"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 200
-        versionName "2.0.0"
+        versionCode 210
+        versionName "2.1.0"
         multiDexEnabled true
 
         ndk {
