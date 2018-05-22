@@ -32,7 +32,7 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService mApiService = retrofit.create(ApiService.class);
+        com.guojian.weekcook.api.ApiService mApiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
         Call<CookListBean> responseBodyCall = mApiService.getDataByKeyword(name, 50, 0);
         responseBodyCall.enqueue(new Callback<CookListBean>() {
             @Override
@@ -69,7 +69,7 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService mApiService = retrofit.create(ApiService.class);
+        com.guojian.weekcook.api.ApiService mApiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
         Call<CookListBean> responseBodyCall = mApiService.getDataByClassId(Integer.parseInt(classId), 50, 0);
         responseBodyCall.enqueue(new Callback<CookListBean>() {
             @Override
@@ -102,7 +102,7 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService apiService = retrofit.create(ApiService.class);
+        com.guojian.weekcook.api.ApiService apiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
         Call<CookDetailBean> listBeanCall = apiService.getDataById((int) nameId);
         listBeanCall.enqueue(new Callback<CookDetailBean>() {
             @Override
@@ -129,7 +129,7 @@ public class GetJsonUtils {
                 .baseUrl("http://jisusrecipe.market.alicloudapi.com/recipe/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService apiService = retrofit.create(ApiService.class);
+        com.guojian.weekcook.api.ApiService apiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
         Call<CookClassBean> listBeanCall = apiService.getDataClass();
         listBeanCall.enqueue(new Callback<CookClassBean>() {
             @Override
