@@ -12,9 +12,8 @@ import com.guojian.weekcook.bean.CookClassBean;
 
 import java.util.List;
 
-
 /**
- * Created by guojian on 11/4/16.
+ * @author Created by guojian on 2016-11-14. 分类页面二级分类页面Adapter
  */
 public class ChildrenClassAdapter extends BaseAdapter {
     private Context context;
@@ -49,7 +48,7 @@ public class ChildrenClassAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.textView = (TextView) convertView.findViewById(R.id.tv_children_item);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
         CookClassBean.ResultBean.ListBean childrenClassBean = childrenClassList.get(position);

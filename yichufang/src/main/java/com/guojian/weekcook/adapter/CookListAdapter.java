@@ -16,10 +16,7 @@ import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 import java.util.List;
 
 /**
- * Created by guojian on 11/15/16.
- *
- * @author jack.guo
- * @ 菜谱列表页面
+ * @author Created by guojian on 11/15/16.  菜谱列表页面
  */
 public class CookListAdapter extends BaseAdapter {
 

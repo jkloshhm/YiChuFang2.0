@@ -25,7 +25,7 @@ import com.guojian.weekcook.activity.RecipeDetailsActivity;
 import com.guojian.weekcook.activity.SearchActivity;
 import com.guojian.weekcook.AutoPlayingViewPager;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.Api.GetJsonUtils;
+import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.utils.RandomNum;
 
 import java.lang.ref.WeakReference;

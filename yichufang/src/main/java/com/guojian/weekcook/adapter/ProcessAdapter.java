@@ -15,7 +15,7 @@ import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 import java.util.List;
 
 /**
- * Created by guojian on 11/17/16.
+ * @author Created by guojian on 11/17/16. 菜谱详情页面制作步骤ProcessAdapter
  */
 public class ProcessAdapter extends BaseAdapter {
 

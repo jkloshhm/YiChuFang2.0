@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * Created by guojian on 11/4/16.
+ * @author Created by guojian on 11/4/16. 分类页面一级级分类页面Adapter
  */
 public class ParentClassAdapter extends BaseAdapter {
     private Context context;

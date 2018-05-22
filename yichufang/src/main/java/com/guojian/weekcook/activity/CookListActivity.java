@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.guojian.weekcook.Api.GetJsonUtils;
+import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.CookListAdapter;
 import com.guojian.weekcook.bean.CookListBean;

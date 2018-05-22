@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by guojian on 12/15/16.
+ * @author Created by guojian on 2016-12-15.
  */
 public class StepViewPagerBean implements Serializable{
     private String position;

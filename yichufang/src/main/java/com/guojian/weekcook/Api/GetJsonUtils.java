@@ -1,4 +1,4 @@
-package com.guojian.weekcook.Api;
+package com.guojian.weekcook.api;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,8 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author jkloshhm on 2016-11-02.
- * <p>
- * modified at 2018-05-22  修改网络请求：阿里的ApiGatewayClient修改为retrofit
+ * modified at 2018-05-22  修改网络请求：阿里的ApiGatewayClient修改为retrofit。
  */
 public class GetJsonUtils {
 

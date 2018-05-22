@@ -20,7 +20,7 @@ import com.guojian.weekcook.activity.CookListActivity;
 import com.guojian.weekcook.adapter.ChildrenClassAdapter;
 import com.guojian.weekcook.adapter.ParentClassAdapter;
 import com.guojian.weekcook.bean.CookClassBean;
-import com.guojian.weekcook.Api.GetJsonUtils;
+import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.utils.GridViewWithHeaderAndFooter;
 
 import java.lang.ref.WeakReference;

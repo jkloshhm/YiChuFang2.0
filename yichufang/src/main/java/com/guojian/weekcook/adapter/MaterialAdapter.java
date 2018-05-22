@@ -13,7 +13,7 @@ import com.guojian.weekcook.bean.CookListBean;
 import java.util.List;
 
 /**
- * Created by guojian on 11/17/16.
+ *@author  Created by guojian on 11/17/16. 菜谱详情页面食材MaterialAdapter
  */
 public class MaterialAdapter extends BaseAdapter {
 
