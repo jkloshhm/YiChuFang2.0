@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.guojian.weekcook.bean.CookBean;
+import com.guojian.weekcook.bean.CookListBean;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -33,7 +33,7 @@ public class MyDBServiceUtils extends DBServices {
     }
 
     //把cookBean保存到数据库
-    public static void saveData(CookBean cookBean, DBServices db) {
+    public static void saveData(CookListBean.ResultBean.ListBean cookBean, DBServices db) {
         ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(arrayOutputStream);
@@ -51,8 +51,8 @@ public class MyDBServiceUtils extends DBServices {
         }
     }
 
-    public static ArrayList<CookBean> getAllObject(DBServices db) {
-        ArrayList<CookBean> cookBeanList = new ArrayList<CookBean>();
+    public static ArrayList<CookListBean.ResultBean.ListBean> getAllObject(DBServices db) {
+        ArrayList<CookListBean.ResultBean.ListBean> cookBeanList = new ArrayList<CookListBean.ResultBean.ListBean>();
         SQLiteDatabase database = db.getReadableDatabase();
         Cursor cursor = database.rawQuery("select * from Test001", null);
         if (cursor != null) {
@@ -63,8 +63,8 @@ public class MyDBServiceUtils extends DBServices {
                 ByteArrayInputStream arrayInputStream = new ByteArrayInputStream(data);
                 try {
                     ObjectInputStream inputStream = new ObjectInputStream(arrayInputStream);
-                    CookBean cookBean = (CookBean) inputStream.readObject();
-                    cookBean.setReal_ip(cursorString);
+                    CookListBean.ResultBean.ListBean cookBean = (CookListBean.ResultBean.ListBean) inputStream.readObject();
+                    //cookBean.setReal_ip(cursorString);
                     cookBeanList.add(cookBean);
                     inputStream.close();
                     arrayInputStream.close();
@@ -79,10 +79,10 @@ public class MyDBServiceUtils extends DBServices {
         return cookBeanList;
     }
 
-    public static void delectData(CookBean cookBean, DBServices db) {
-        String cursor_id = cookBean.getReal_ip();
+    public static void delectData(CookListBean.ResultBean.ListBean cookBean, DBServices db) {
+        String cursor_id = cookBean.getId();
         if (cursor_id != null) {
-            db.delete("Test001", "_id like ?", new String[]{cursor_id});
+            db.delete("Test001", "id like ?", new String[]{cursor_id});
         }
     }
 

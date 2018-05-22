@@ -81,7 +81,7 @@ public class SearchActivity extends Activity {
         } else {
             //setEditTextInhibitInputSpeChat(mSearchName);
             Intent mIntent = new Intent(SearchActivity.this, CookListActivity.class);
-            mIntent.putExtra("CookType", "GetDataBySearchName");
+            mIntent.putExtra("CookType", "getDataBySearchName");
             mIntent.putExtra("name", name.replace(" ", ""));
             startActivity(mIntent);
         }

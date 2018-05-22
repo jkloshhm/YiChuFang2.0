@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
-import com.guojian.weekcook.bean.MaterialBean;
+import com.guojian.weekcook.bean.CookListBean;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import java.util.List;
 public class MaterialAdapter extends BaseAdapter {
 
     private Context context;
-    private List<MaterialBean> materialBeanList;
+    private List<CookListBean.ResultBean.ListBean.MaterialBean> materialBeanList;
 
-    public MaterialAdapter(Context context, List<MaterialBean> materialBeanList) {
+    public MaterialAdapter(Context context, List<CookListBean.ResultBean.ListBean.MaterialBean> materialBeanList) {
         this.context = context;
         this.materialBeanList = materialBeanList;
     }
@@ -53,7 +53,7 @@ public class MaterialAdapter extends BaseAdapter {
         }else {
             holder = (MaterialViewHolder) convertView.getTag();
         }
-        MaterialBean materialBean  = materialBeanList.get(position);
+        CookListBean.ResultBean.ListBean.MaterialBean materialBean  = materialBeanList.get(position);
         holder.name.setText(materialBean.getMname());
         //holder.type.setText(materialBean.getType());
         holder.amount.setText(materialBean.getAmount());

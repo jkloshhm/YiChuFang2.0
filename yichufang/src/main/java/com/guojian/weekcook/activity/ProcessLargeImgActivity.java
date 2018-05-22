@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.guojian.weekcook.ProcessViewPager;
 import com.guojian.weekcook.R;
-import com.guojian.weekcook.bean.ProcessBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.bean.StepViewPagerBean;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class ProcessLargeImgActivity extends AppCompatActivity {
 
     private ProcessViewPager mProcessViewPager;
     private StepViewPagerBean mStepViewPagerBeen;
-    private List<ProcessBean> mProcessBeanList;
+    private List<CookListBean.ResultBean.ListBean.ProcessBean> mProcessBeanList;
 
 
     @Override

@@ -28,9 +28,7 @@ import com.guojian.weekcook.MyScrollView;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.MaterialAdapter;
 import com.guojian.weekcook.adapter.ProcessAdapter;
-import com.guojian.weekcook.bean.CookBean;
-import com.guojian.weekcook.bean.MaterialBean;
-import com.guojian.weekcook.bean.ProcessBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.bean.StepViewPagerBean;
 import com.guojian.weekcook.dao.DBServices;
 import com.guojian.weekcook.dao.MyDBServiceUtils;
@@ -48,7 +46,7 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     private static ArrayList<String> cookIdList = new ArrayList<>();
     private static ProgressDialog dialog;
     private String realIp;
-    private CookBean cookBean;
+    private CookListBean.ResultBean.ListBean cookBean;
     private ImageView mCollectImg, mDetailsImage;
     private ListView mListViewMaterial, mListViewProcess;
     private LinearLayout mDetailsTitleLinearLayout, mCollectLinearLayout, mButtonBack,
@@ -60,7 +58,7 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     private int screenWidth;
     private int mDetailsTitleHeight;
     private int mScrollViewTop;
-    private List<ProcessBean> processBeenList;
+    private List<CookListBean.ResultBean.ListBean.ProcessBean> processBeenList;
 
 
     //是否取消收藏
@@ -199,11 +197,11 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
         super.onResume();
         initDB();
         Intent intent = this.getIntent();
-        cookBean = (CookBean) intent.getSerializableExtra("cookBean01");
+        cookBean = (CookListBean.ResultBean.ListBean) intent.getSerializableExtra("cookBean01");
         setUpViews();
-        realIp = cookBean.getReal_ip();
+        //realIp = cookBean.getReal_ip();
         Log.i(TAG, "realIp==" + realIp);
-        if (realIp.equals("mary") && !cookIdList.contains(cookBean.getId_cook())) {
+        if (/*realIp.equals("mary") && !*/cookIdList.contains(cookBean.getId())) {
             mCollectImg.setImageDrawable(getResources()
                     .getDrawable(R.mipmap.cook_no_collected_white));
             isRed = false;
@@ -244,14 +242,14 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     protected void onPause() {
         Log.i(TAG, "DetailsActivity_onPause()");
         super.onPause();
-        if (realIp.equals("mary") && !cookIdList.contains(cookBean.getId_cook())) {
+        if (/*realIp.equals("mary") &&*/ !cookIdList.contains(cookBean.getId())) {
             if (isRed) {//保存
                 MyDBServiceUtils.saveData(cookBean, db);
             }
         } else {
             if (!isRed) {//删除
                 MyDBServiceUtils.delectData(cookBean, db);
-                cookBean.setReal_ip("mary");
+                //cookBean.setReal_ip("mary");
             }
         }
     }
@@ -259,16 +257,16 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     private void initDB() {
         cookIdList.clear();
         db = MyDBServiceUtils.getInstance(this);
-        ArrayList<CookBean> cookBeanList = MyDBServiceUtils.getAllObject(db);
+        ArrayList<CookListBean.ResultBean.ListBean> cookBeanList = MyDBServiceUtils.getAllObject(db);
         for (int i = 0; i < cookBeanList.size(); i++) {
-            String cook_id = cookBeanList.get(i).getId_cook();
+            String cook_id = cookBeanList.get(i).getId();
             cookIdList.add(cook_id);
         }
     }
 
     private void setUpViews() {
-        mTitleName.setText(cookBean.getName_cook());
-        mName.setText(cookBean.getName_cook());
+        mTitleName.setText(cookBean.getName());
+        mName.setText(cookBean.getName());
         ImageLoaderWithGlide.loadImage(mContext,cookBean.getPic(),mDetailsImage);
         String mContentString = cookBean.getContent().replace("<br />", "");
         mContent.setText(mContentString);
@@ -276,13 +274,13 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
         mPeopleNum.setText(mPeopleNumString);
         String mCookingTimeString = "烹饪时间: " + cookBean.getCookingtime();
         mCookingTime.setText(mCookingTimeString);
-        String mTagString = "标签: " + cookBean.getTag_cook();
+        String mTagString = "标签: " + cookBean.getTag();
         mTag.setText(mTagString);
-        List<MaterialBean> materialBeanList = cookBean.getMaterialBeen();
+        List<CookListBean.ResultBean.ListBean.MaterialBean> materialBeanList = cookBean.getMaterial();
         MaterialAdapter mMaterialAdapter = new MaterialAdapter(this, materialBeanList);
         mListViewMaterial.setAdapter(mMaterialAdapter);
         setListViewHeightBasedOnChildren1(mListViewMaterial);
-        processBeenList = cookBean.getProcessBeen();
+        processBeenList = cookBean.getProcess();
         ProcessAdapter mProcessAdapter = new ProcessAdapter(this, processBeenList);
         mListViewProcess.setAdapter(mProcessAdapter);
         setListViewHeightBasedOnChildren1(mListViewProcess);
@@ -358,7 +356,7 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
                 if (GetBitmapFromSdCardUtil.hasSdcard()) {
                     try {
                         Bitmap mScreenShotBitmap = ScreenShotUtils.getScrollViewBitmap(mScrollView);
-                        screenShotFileName = ScreenShotUtils.savePic(mScreenShotBitmap,cookBean.getId_cook());
+                        screenShotFileName = ScreenShotUtils.savePic(mScreenShotBitmap,cookBean.getId());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

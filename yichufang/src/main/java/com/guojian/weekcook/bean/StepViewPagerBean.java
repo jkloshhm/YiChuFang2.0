@@ -8,18 +8,18 @@ import java.util.List;
  */
 public class StepViewPagerBean implements Serializable{
     private String position;
-    private List<ProcessBean> mProcessBeanList;
+    private List<CookListBean.ResultBean.ListBean.ProcessBean> mProcessBeanList;
 
-    public StepViewPagerBean(List<ProcessBean> mProcessBeanList, String position) {
+    public StepViewPagerBean(List<CookListBean.ResultBean.ListBean.ProcessBean> mProcessBeanList, String position) {
         this.mProcessBeanList = mProcessBeanList;
         this.position = position;
     }
 
-    public List<ProcessBean> getmProcessBeanList() {
+    public List<CookListBean.ResultBean.ListBean.ProcessBean> getmProcessBeanList() {
         return mProcessBeanList;
     }
 
-    public void setmProcessBeanList(List<ProcessBean> mProcessBeanList) {
+    public void setmProcessBeanList(List<CookListBean.ResultBean.ListBean.ProcessBean> mProcessBeanList) {
         this.mProcessBeanList = mProcessBeanList;
     }
 

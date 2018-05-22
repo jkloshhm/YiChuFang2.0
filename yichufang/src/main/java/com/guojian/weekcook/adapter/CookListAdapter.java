@@ -10,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
-import com.guojian.weekcook.bean.CookBean;
-import com.guojian.weekcook.bean.MaterialBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 
 import java.util.List;
@@ -25,9 +24,9 @@ import java.util.List;
 public class CookListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<CookBean> cookBeanList;
+    private List<CookListBean.ResultBean.ListBean> cookBeanList;
 
-    public CookListAdapter(Context mContext, List<CookBean> cookBeanList) {
+    public CookListAdapter(Context mContext, List<CookListBean.ResultBean.ListBean> cookBeanList) {
         this.mContext = mContext;
         this.cookBeanList = cookBeanList;
     }
@@ -61,13 +60,13 @@ public class CookListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        CookBean cookBean = cookBeanList.get(position);
+        CookListBean.ResultBean.ListBean cookBean = cookBeanList.get(position);
         Log.i("guojian", "CookListAdapter-->> cookBean.toString();====" + cookBean.toString());
-        holder.mCookName.setText(cookBean.getName_cook());
-        List<MaterialBean> materialBeanList = cookBean.getMaterialBeen();
+        holder.mCookName.setText(cookBean.getName());
+        List<CookListBean.ResultBean.ListBean.MaterialBean> materialBeanList = cookBean.getMaterial();
         StringBuilder material = new StringBuilder("");
         for (int i = materialBeanList.size() - 1; i >= 0; i--) {
-            MaterialBean materialBean = materialBeanList.get(i);
+            CookListBean.ResultBean.ListBean.MaterialBean materialBean = materialBeanList.get(i);
             String materialString = materialBean.getMname() + ", ";
             material.append(materialString);
         }

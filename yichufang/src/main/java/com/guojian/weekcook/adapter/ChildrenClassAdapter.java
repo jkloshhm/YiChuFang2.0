@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
-import com.guojian.weekcook.bean.ChildrenClassBean;
+import com.guojian.weekcook.bean.CookClassBean;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class ChildrenClassAdapter extends BaseAdapter {
     private Context context;
-    private List<ChildrenClassBean> childrenClassList;
+    private List<CookClassBean.ResultBean.ListBean> childrenClassList;
 
-    public ChildrenClassAdapter(List<ChildrenClassBean> childrenClassList, Context context) {
+    public ChildrenClassAdapter(List<CookClassBean.ResultBean.ListBean> childrenClassList, Context context) {
         this.childrenClassList = childrenClassList;
         this.context = context;
     }
@@ -52,8 +52,8 @@ public class ChildrenClassAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        ChildrenClassBean childrenClassBean = childrenClassList.get(position);
-        holder.textView.setText(childrenClassBean.getChildrenClassName());
+        CookClassBean.ResultBean.ListBean childrenClassBean = childrenClassList.get(position);
+        holder.textView.setText(childrenClassBean.getName());
         return convertView;
     }
 

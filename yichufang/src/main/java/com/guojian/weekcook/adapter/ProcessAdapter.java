@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
-import com.guojian.weekcook.bean.ProcessBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 
 import java.util.List;
@@ -20,9 +20,9 @@ import java.util.List;
 public class ProcessAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<ProcessBean> processBeanList;
+    private List<CookListBean.ResultBean.ListBean.ProcessBean> processBeanList;
 
-    public ProcessAdapter(Context mContext, List<ProcessBean> processBeanList) {
+    public ProcessAdapter(Context mContext, List<CookListBean.ResultBean.ListBean.ProcessBean> processBeanList) {
         this.mContext = mContext;
         this.processBeanList = processBeanList;
     }
@@ -56,12 +56,12 @@ public class ProcessAdapter extends BaseAdapter {
             holder = (ProcessViewHolder) convertView.getTag();
         }
 
-        ProcessBean processBean = processBeanList.get(position);
+        CookListBean.ResultBean.ListBean.ProcessBean processBean = processBeanList.get(position);
         String steps = (position+1)+"";
         holder.pStep.setText(steps);
-        String ProcessString = processBean.getProcess_pcontent().replace("<br />","");
+        String ProcessString = processBean.getPcontent().replace("<br />","");
         holder.pContent.setText(ProcessString);
-        ImageLoaderWithGlide.loadImage(mContext,processBean.getProcess_pic(),holder.pImageView);
+        ImageLoaderWithGlide.loadImage(mContext,processBean.getPic(),holder.pImageView);
 
         return convertView;
     }

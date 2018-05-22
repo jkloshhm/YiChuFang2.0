@@ -18,7 +18,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.alibaba.apigateway.client.ApiGatewayClient;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.MyFragmentPagerAdapter;
 import com.guojian.weekcook.fragment.ClassFragment;
@@ -43,7 +42,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(),R.color.white,null), true);
+        StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.white, null), true);
         setContentView(R.layout.activity_main);
         boolean hasPerm = ContextCompat.checkSelfPermission(MainActivity.this, "Manifest.permission.WRITE_EXTERNAL_STORAGE") ==
                 PackageManager.PERMISSION_GRANTED;
@@ -56,7 +55,7 @@ public class MainActivity extends FragmentActivity {
                     BAIDU_READ_PHONE_STATE);
         }
 
-        initGatewaySdk();
+
         initView();
     }
 
@@ -231,10 +230,6 @@ public class MainActivity extends FragmentActivity {
         });
     }
 
-    private void initGatewaySdk() {
-        // 初始化API网关
-        ApiGatewayClient.init(getApplicationContext(), false);
-    }
 
     @Override
     protected void onDestroy() {
@@ -244,6 +239,7 @@ public class MainActivity extends FragmentActivity {
 
 
     private static final int BAIDU_READ_PHONE_STATE = 1000;
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

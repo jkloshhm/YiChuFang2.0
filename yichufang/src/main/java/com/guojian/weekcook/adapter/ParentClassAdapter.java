@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
-import com.guojian.weekcook.bean.ParentClassBean;
+import com.guojian.weekcook.bean.CookClassBean;
 
 import java.util.List;
 
@@ -20,14 +20,14 @@ import java.util.List;
  */
 public class ParentClassAdapter extends BaseAdapter {
     private Context context;
-    private List<ParentClassBean> parentClassBeenList;
+    private List<CookClassBean.ResultBean> parentClassBeenList;
     private int selectItem = 0;
-    int imageView[] = {R.mipmap.class_gongxiao, R.mipmap.class_renqun, R.mipmap.class_jibing,
+    int[] imageView = {R.mipmap.class_gongxiao, R.mipmap.class_renqun, R.mipmap.class_jibing,
             R.mipmap.class_tizhi, R.mipmap.class_caixi, R.mipmap.class_xiaochi,
             R.mipmap.calss_caipin, R.mipmap.class_kouwei, R.mipmap.calss_jiagonggongyi,
             R.mipmap.class_chufangyongju, R.mipmap.class_changjing};
 
-    public ParentClassAdapter(Context context, List<ParentClassBean> parentClassBeenList) {
+    public ParentClassAdapter(Context context, List<CookClassBean.ResultBean> parentClassBeenList) {
         this.context = context;
         this.parentClassBeenList = parentClassBeenList;
     }
@@ -63,8 +63,8 @@ public class ParentClassAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ParentClassBean parentClassBean = parentClassBeenList.get(position);
-        holder.textView.setText(parentClassBean.getParentClassName());
+        CookClassBean.ResultBean parentClassBean = parentClassBeenList.get(position);
+        holder.textView.setText(parentClassBean.getName());
         //holder.imageView.setBackgroundResource(imageView[position]);
         holder.imageView.setImageResource(imageView[position]);
 

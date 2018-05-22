@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.CookListAdapter;
-import com.guojian.weekcook.bean.CookBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.dao.DBServices;
 import com.guojian.weekcook.dao.MyDBServiceUtils;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
@@ -27,8 +27,8 @@ import java.util.ArrayList;
 public class CollectionActivity extends AppCompatActivity {
 
     private static DBServices db;
-    private static ArrayList<CookBean> cookBeanlist;
-    private static CookBean cookBean;
+    private static ArrayList<CookListBean.ResultBean.ListBean> cookBeanlist;
+    private static CookListBean.ResultBean.ListBean cookBean;
     //private ArrayList<String> array = new ArrayList<String>();
     private CookListAdapter adapter;
     private ListView lv;

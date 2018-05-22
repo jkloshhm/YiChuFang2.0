@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.guojian.weekcook.bean.ProcessBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class ProcessViewPager extends FrameLayout {
     /**
      * 自定义轮播图资源
      */
-    private List<ProcessBean> mProcessBeanList;
+    private List<CookListBean.ResultBean.ListBean.ProcessBean> mProcessBeanList;
 
     /**
      * 轮播容器
@@ -74,7 +74,7 @@ public class ProcessViewPager extends FrameLayout {
         this.mContext = context;
     }
 
-    public ProcessViewPager initialize(List<ProcessBean> processBeanList) {
+    public ProcessViewPager initialize(List<CookListBean.ResultBean.ListBean.ProcessBean> processBeanList) {
 
         if (processBeanList != null && !processBeanList.isEmpty()) {
             mProcessBeanList = processBeanList;
@@ -93,7 +93,7 @@ public class ProcessViewPager extends FrameLayout {
         /**
          * ViewPageItem点击事件回调
          */
-        void onPageItemClick(int position, ProcessBean processBean);
+        //void onPageItemClick(int position, ProcessBean processBean);
     }
     /**
      * 初始化Views 及组件UI
@@ -131,17 +131,17 @@ public class ProcessViewPager extends FrameLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            final ProcessBean processBean = mProcessBeanList.get(position % IMAGE_COUNT);
+            final CookListBean.ResultBean.ListBean.ProcessBean processBean = mProcessBeanList.get(position % IMAGE_COUNT);
             View view = mInflate.inflate(R.layout.item_process_viewpager, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.img_item_process_pic_viewpager);
             TextView labelTitle = (TextView) view.findViewById(R.id.tv_item_process_content_viewpager);
 
-            if (!TextUtils.isEmpty(processBean.getProcess_pic())) {//通过URL时使用ImageLoader加载图片
+            if (!TextUtils.isEmpty(processBean.getPcontent())) {//通过URL时使用ImageLoader加载图片
                 //ImageLoaderUtil.setPicBitmap(imageView, processBean.getProcess_pic());
-                ImageLoaderWithGlide.loadImage(mContext,processBean.getProcess_pic(),imageView);
+                ImageLoaderWithGlide.loadImage(mContext,processBean.getPic(),imageView);
             }
-            if (!TextUtils.isEmpty(processBean.getProcess_pcontent())) {//有标题数据才显示
-                labelTitle.setText(processBean.getProcess_pcontent().replace("<br />",""));
+            if (!TextUtils.isEmpty(processBean.getPcontent())) {//有标题数据才显示
+                labelTitle.setText(processBean.getPcontent().replace("<br />",""));
             } else {//没有标题数据不显示文本透明背景
                 labelTitle.setBackgroundDrawable(null);
             }

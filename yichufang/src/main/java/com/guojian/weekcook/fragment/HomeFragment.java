@@ -24,14 +24,9 @@ import com.guojian.weekcook.activity.CookListActivity;
 import com.guojian.weekcook.activity.RecipeDetailsActivity;
 import com.guojian.weekcook.activity.SearchActivity;
 import com.guojian.weekcook.AutoPlayingViewPager;
-import com.guojian.weekcook.bean.CookBean;
-import com.guojian.weekcook.bean.MaterialBean;
-import com.guojian.weekcook.bean.ProcessBean;
-import com.guojian.weekcook.utils.GetJsonUtils;
+import com.guojian.weekcook.bean.CookListBean;
+import com.guojian.weekcook.Api.GetJsonUtils;
 import com.guojian.weekcook.utils.RandomNum;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -47,14 +42,14 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
 
     //private static String TAG = "jkloshhm___SearchFragment";
-    private static List<CookBean> cookBeanList = null;
+    private static List<CookListBean.ResultBean.ListBean> cookBeanList = null;
     private static AutoPlayingViewPager mAutoPlayingViewPager;
     private static Context mContext;
     private static AutoPlayingViewPager.OnPageItemClickListener
             onPageItemClickListener = new AutoPlayingViewPager.OnPageItemClickListener() {
 
         @Override
-        public void onPageItemClick(int position, CookBean cookBean) {
+        public void onPageItemClick(int position, CookListBean.ResultBean.ListBean cookBean) {
             // 直接返回链接,使用WebView加载
             if (cookBean != null) {
                 Intent intent = new Intent(mContext, RecipeDetailsActivity.class);
@@ -89,7 +84,7 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private void getDataAndUpdateUI(String data, String tag) {
+    /*private void getDataAndUpdateUI(String data, String tag) {
         if (tag != null) {
             try {
                 JSONObject dataJsonObject = new JSONObject(data);
@@ -130,7 +125,7 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -216,7 +211,7 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(mContext, CookListActivity.class);
                 intent.putExtra("classId", classId);
                 intent.putExtra("name", name);
-                intent.putExtra("CookType", "GetDataByClassId");
+                intent.putExtra("CookType", "getDataByClassId");
                 startActivity(intent);
             }
         });
@@ -241,7 +236,7 @@ public class HomeFragment extends Fragment {
                 String name = (String) map.get("name");
                 Intent intent = new Intent(mContext, CookListActivity.class);
                 intent.putExtra("name", name);
-                intent.putExtra("CookType", "GetDataBySearchName");
+                intent.putExtra("CookType", "getDataBySearchName");
                 startActivity(intent);
             }
         });
@@ -301,22 +296,24 @@ public class HomeFragment extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             Bundle jsonBundle = msg.getData();
-            String classType = jsonBundle.getString("classType");
+            //String classType = jsonBundle.getString("classType");
             //String jsonErrorMessage = jsonBundle.getString("errorMessage");
-            String jsonData = jsonBundle.getString("stringBody");
+            CookListBean.ResultBean.ListBean jsonData = (CookListBean.ResultBean.ListBean) jsonBundle.getSerializable("stringBody");
             String tag = jsonBundle.getString("tag");
             //Log.i(TAG, "--------->>jsonData====" + jsonData);
             //Log.i(TAG, "--------->>jsonErrorMessage====" + jsonErrorMessage);
             if (jsonData != null) {
-                if (classType != null && classType.equals("GetDataBySearchNameId")) {//搜索名称ID
-                    getDataAndUpdateUI(jsonData, tag);
-                    if (cookBeanList.size() == 3) {
-                        //mAutoPlayingViewPager.notifyAll();
-                        mAutoPlayingViewPager.initialize(cookBeanList).build();
-                        mAutoPlayingViewPager.setOnPageItemClickListener(onPageItemClickListener);
-                        mAutoPlayingViewPager.startPlaying();
-                    }
+                //getDataAndUpdateUI(jsonData, tag);
+                if (tag != null) {
+                    cookBeanList.add(jsonData);
                 }
+                if (cookBeanList.size() == 3) {
+                    //mAutoPlayingViewPager.notifyAll();
+                    mAutoPlayingViewPager.initialize(cookBeanList).build();
+                    mAutoPlayingViewPager.setOnPageItemClickListener(onPageItemClickListener);
+                    mAutoPlayingViewPager.startPlaying();
+                }
+
             }
         }
     }
@@ -329,7 +326,7 @@ public class HomeFragment extends Fragment {
             cookBeanList = new ArrayList<>();
             try {
                 for (int i = 0; i < 3; i++) {
-                    GetJsonUtils.GetDataBySearchNameId(handlerSearch, "" + numList.get(i),
+                    GetJsonUtils.getDataById(handlerSearch, numList.get(i),
                             String.valueOf(i + 1));
                 }
             } catch (Exception e) {

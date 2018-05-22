@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import com.guojian.weekcook.bean.CookBean;
+import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 
 import java.lang.reflect.Field;
@@ -77,7 +77,7 @@ public class AutoPlayingViewPager extends FrameLayout {
     /**
      * 自定义轮播图资源
      */
-    private List<CookBean> mAutoPlayInfoCookBeanList;
+    private List<CookListBean.ResultBean.ListBean> mAutoPlayInfoCookBeanList;
     /**
      * 放圆点的View的list
      */
@@ -179,7 +179,7 @@ public class AutoPlayingViewPager extends FrameLayout {
      * @param //imageUrls 需要加载的图片地址，根据传入数量动态创建容器。
      * @return
      */
-    public AutoPlayingViewPager initialize(List<CookBean> autoPlayInfoList) {
+    public AutoPlayingViewPager initialize(List<CookListBean.ResultBean.ListBean> autoPlayInfoList) {
         if (autoPlayInfoList != null && !autoPlayInfoList.isEmpty()) {
             mAutoPlayInfoCookBeanList = autoPlayInfoList;
         }/* else {//没有数据使用默认的图片资源
@@ -279,7 +279,7 @@ public class AutoPlayingViewPager extends FrameLayout {
         /**
          * ViewPageItem点击事件回调
          */
-        void onPageItemClick(int position, CookBean cookBean);
+        void onPageItemClick(int position, CookListBean.ResultBean.ListBean cookBean);
     }
 
     /**
@@ -294,7 +294,7 @@ public class AutoPlayingViewPager extends FrameLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            final CookBean cookBean = mAutoPlayInfoCookBeanList.get(position % IMAGE_COUNT);
+            final CookListBean.ResultBean.ListBean cookBean = mAutoPlayInfoCookBeanList.get(position % IMAGE_COUNT);
             View view = mInflate.inflate(R.layout.item_label_auto_play_viewpager, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.img_item_auto_play);
             TextView labelTitle = (TextView) view.findViewById(R.id.tv_item_label_title);
@@ -309,8 +309,8 @@ public class AutoPlayingViewPager extends FrameLayout {
             if (!TextUtils.isEmpty(cookBean.getPic())) {//通过URL时使用ImageLoader加载图片
                 ImageLoaderWithGlide.loadImage(mContext,cookBean.getPic(),imageView);
             }
-            if (!TextUtils.isEmpty(cookBean.getName_cook())) {//有标题数据才显示
-                labelTitle.setText(cookBean.getName_cook());
+            if (!TextUtils.isEmpty(cookBean.getName())) {//有标题数据才显示
+                labelTitle.setText(cookBean.getName());
             } else {//没有标题数据不显示文本透明背景
                 labelTitle.setBackgroundDrawable(null);
             }
