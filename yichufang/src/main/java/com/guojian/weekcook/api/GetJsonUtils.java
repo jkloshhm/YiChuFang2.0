@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * @author jkloshhm on 2016-11-02.
+ * @author jkloshhm on 2016-11-02.  网络请求类
  * modified at 2018-05-22  修改网络请求：阿里的ApiGatewayClient修改为retrofit。
  */
 public class GetJsonUtils {
@@ -32,7 +32,7 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        com.guojian.weekcook.api.ApiService mApiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
+        ApiService mApiService = retrofit.create(ApiService.class);
         Call<CookListBean> responseBodyCall = mApiService.getDataByKeyword(name, 50, 0);
         responseBodyCall.enqueue(new Callback<CookListBean>() {
             @Override
@@ -69,7 +69,7 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        com.guojian.weekcook.api.ApiService mApiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
+        ApiService mApiService = retrofit.create(ApiService.class);
         Call<CookListBean> responseBodyCall = mApiService.getDataByClassId(Integer.parseInt(classId), 50, 0);
         responseBodyCall.enqueue(new Callback<CookListBean>() {
             @Override
@@ -102,26 +102,28 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        com.guojian.weekcook.api.ApiService apiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
+        ApiService apiService = retrofit.create(ApiService.class);
         Call<CookDetailBean> listBeanCall = apiService.getDataById((int) nameId);
         listBeanCall.enqueue(new Callback<CookDetailBean>() {
             @Override
             public void onResponse(Call<CookDetailBean> call, Response<CookDetailBean> response) {
-
-                CookListBean.ResultBean.ListBean stringBody = response.body().getResult();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("stringBody", stringBody);
-                bundle.putString("tag", tag);
-                Message msg = new Message();
-                msg.setData(bundle);
-                handler.sendMessage(msg);
+                try {
+                    CookListBean.ResultBean.ListBean stringBody = response.body().getResult();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("stringBody", stringBody);
+                    bundle.putString("tag", tag);
+                    Message msg = new Message();
+                    msg.setData(bundle);
+                    handler.sendMessage(msg);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onFailure(Call<CookDetailBean> call, Throwable t) {
             }
         });
-
     }
 
     public static void getDataClass(final Handler handler) {
@@ -129,20 +131,24 @@ public class GetJsonUtils {
                 .baseUrl("http://jisusrecipe.market.alicloudapi.com/recipe/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        com.guojian.weekcook.api.ApiService apiService = retrofit.create(com.guojian.weekcook.api.ApiService.class);
+        ApiService apiService = retrofit.create(ApiService.class);
         Call<CookClassBean> listBeanCall = apiService.getDataClass();
         listBeanCall.enqueue(new Callback<CookClassBean>() {
             @Override
             public void onResponse(Call<CookClassBean> call, Response<CookClassBean> response) {
+                try {
+                    CookClassBean stringBody = response.body();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("stringBody", stringBody);
+                    Message msg = new Message();
+                    msg.setData(bundle);
+                    Log.i("guo", "stringBody==========utils====" + stringBody);
+                    handler.sendMessage(msg);
+                    Log.i("jack_guo", "加载成功：errorMessage=====333333" + response.body().getMsg());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 
-                CookClassBean stringBody = response.body();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("stringBody", stringBody);
-                Message msg = new Message();
-                msg.setData(bundle);
-                Log.i("guo", "stringBody==========utils====" + stringBody);
-                handler.sendMessage(msg);
-                Log.i("jack_guo", "加载成功：errorMessage=====333333" + response.body().getMsg());
             }
 
             @Override
@@ -151,39 +157,5 @@ public class GetJsonUtils {
             }
         });
 
-
-       /* RpcService rpcService = ApiGatewayClient.getRpcService();
-        final ApiRequest apiRequest = new ApiRequest();
-        apiRequest.setAddress("http://jisusrecipe.market.alicloudapi.com");
-        apiRequest.setPath("/recipe/class");
-        apiRequest.addQuery("num", "30");
-        apiRequest.setMethod(HttpMethod.GET);
-        apiRequest.setTrustServerCertificate(true);
-        apiRequest.setTimeout(10000);
-        rpcService.call(apiRequest, new ApiResponseCallback() {
-            @Override
-            public void onSuccess(ApiResponse apiResponse) {
-                try {
-                    String errorMessage = apiResponse.getErrorMessage();
-                    String stringBody = apiResponse.getStringBody();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("classType", "getDataClass");
-                    bundle.putString("errorMessage", errorMessage);
-                    bundle.putString("stringBody", stringBody);
-                    Message msg = new Message();
-                    msg.setData(bundle);
-                    handler.sendMessage(msg);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onException(ApiInvokeException e) {
-                e.printStackTrace();
-            }
-        });*/
     }
-
-
 }

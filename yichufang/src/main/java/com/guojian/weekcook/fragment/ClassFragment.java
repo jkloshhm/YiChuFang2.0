@@ -27,19 +27,19 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author Created by jkloshhm on 2017/6/24. 分类页面
  */
 public class ClassFragment extends Fragment {
 
 
-    private static List<CookClassBean.ResultBean> parentClassBeenList;
-    private static List<CookClassBean.ResultBean.ListBean> childrenClassBeenList;
-    private static Context mContext;
-    private static LinearLayout mLoadingLinearLayout, mParentLinearLayout, mChildrenLinearLayout;
-    private static ListView mListViewParent;
-    private static GridViewWithHeaderAndFooter mGridViewChildren;
-    private static ParentClassAdapter parentClassAdapter;
-    private static ChildrenClassAdapter childrenClassAdapter;
+    private List<CookClassBean.ResultBean> parentClassBeenList;
+    private List<CookClassBean.ResultBean.ListBean> childrenClassBeenList;
+    private Context mContext;
+    private LinearLayout mLoadingLinearLayout, mParentLinearLayout, mChildrenLinearLayout;
+    private ListView mListViewParent;
+    private GridViewWithHeaderAndFooter mGridViewChildren;
+    private ParentClassAdapter parentClassAdapter;
+    private ChildrenClassAdapter childrenClassAdapter;
     private MyHandler myHandler = new MyHandler(this);
     private View headerView, footerView;
 
@@ -47,7 +47,7 @@ public class ClassFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private static void initChildrenView(int position) {
+    private void initChildrenView(int position) {
         CookClassBean.ResultBean parentClassBean1 = parentClassBeenList.get(position);
         childrenClassBeenList = parentClassBean1.getList();
         childrenClassAdapter = new ChildrenClassAdapter(childrenClassBeenList, mContext);
@@ -172,7 +172,7 @@ public class ClassFragment extends Fragment {
         }
     }
 
-    private static void getDataAndUpdateUI(CookClassBean cookClassBean) {
+    private void getDataAndUpdateUI(CookClassBean cookClassBean) {
         try {
             parentClassBeenList = cookClassBean.getResult();
             //StringBuffer s = new StringBuffer();

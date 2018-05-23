@@ -59,14 +59,14 @@ public class ProcessAdapter extends BaseAdapter {
         CookListBean.ResultBean.ListBean.ProcessBean processBean = processBeanList.get(position);
         String steps = (position+1)+"";
         holder.pStep.setText(steps);
-        String ProcessString = processBean.getPcontent().replace("<br />","");
-        holder.pContent.setText(ProcessString);
+        String processString = processBean.getPcontent().replace("<br />","");
+        holder.pContent.setText(processString);
         ImageLoaderWithGlide.loadImage(mContext,processBean.getPic(),holder.pImageView);
 
         return convertView;
     }
 
-    class ProcessViewHolder {
+    private class ProcessViewHolder {
         private TextView pContent,pStep;
         private ImageView pImageView;
     }

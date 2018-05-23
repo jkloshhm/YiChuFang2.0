@@ -56,7 +56,7 @@ public class ChildrenClassAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class ViewHolder {
+    private class ViewHolder {
         private TextView textView;
     }
 

@@ -22,7 +22,7 @@ public class ParentClassAdapter extends BaseAdapter {
     private Context context;
     private List<CookClassBean.ResultBean> parentClassBeenList;
     private int selectItem = 0;
-    int[] imageView = {R.mipmap.class_gongxiao, R.mipmap.class_renqun, R.mipmap.class_jibing,
+    private int[] imageView = {R.mipmap.class_gongxiao, R.mipmap.class_renqun, R.mipmap.class_jibing,
             R.mipmap.class_tizhi, R.mipmap.class_caixi, R.mipmap.class_xiaochi,
             R.mipmap.calss_caipin, R.mipmap.class_kouwei, R.mipmap.calss_jiagonggongyi,
             R.mipmap.class_chufangyongju, R.mipmap.class_changjing};

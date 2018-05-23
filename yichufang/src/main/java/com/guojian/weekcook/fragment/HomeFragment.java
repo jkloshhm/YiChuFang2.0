@@ -37,15 +37,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author jkloshhm on 2017-11-16. 首页
  */
 public class HomeFragment extends Fragment {
 
-    //private static String TAG = "jkloshhm___SearchFragment";
-    private static List<CookListBean.ResultBean.ListBean> cookBeanList = null;
-    private static AutoPlayingViewPager mAutoPlayingViewPager;
-    private static Context mContext;
-    private static AutoPlayingViewPager.OnPageItemClickListener
+    private  List<CookListBean.ResultBean.ListBean> cookBeanList = null;
+    private  AutoPlayingViewPager mAutoPlayingViewPager;
+    private  Context mContext;
+    private  AutoPlayingViewPager.OnPageItemClickListener
             onPageItemClickListener = new AutoPlayingViewPager.OnPageItemClickListener() {
 
         @Override
@@ -83,49 +82,6 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
-
-    /*private void getDataAndUpdateUI(String data, String tag) {
-        if (tag != null) {
-            try {
-                JSONObject dataJsonObject = new JSONObject(data);
-                String result = dataJsonObject.getString("result");
-                JSONObject resultJsonObject = new JSONObject(result);
-                String id_cook = resultJsonObject.getString("id");
-                String classid_cook = resultJsonObject.getString("classid");
-                String name_cook = resultJsonObject.getString("name");
-                String peoplenum = resultJsonObject.getString("peoplenum");
-                String preparetime = resultJsonObject.getString("preparetime");
-                String cookingtime = resultJsonObject.getString("cookingtime");
-                String content = resultJsonObject.getString("content");
-                String picUrl = resultJsonObject.getString("pic");
-                String tagCook = resultJsonObject.getString("tag");
-                String maryString = "mary";
-                JSONArray materialArray = resultJsonObject.getJSONArray("material");
-                JSONArray processJsonArray = resultJsonObject.getJSONArray("process");
-                List<MaterialBean> materialBeanList = new ArrayList<>();
-                for (int j = 0; j < materialArray.length(); j++) {
-                    JSONObject materialJsonObject = materialArray.getJSONObject(j);
-                    materialBeanList.add(new MaterialBean(
-                            materialJsonObject.getString("amount"),
-                            materialJsonObject.getString("mname"),
-                            materialJsonObject.getString("type")));
-                }
-                List<ProcessBean> processBeanList = new ArrayList<>();
-                for (int k = 0; k < processJsonArray.length(); k++) {
-                    JSONObject processJsonObject = processJsonArray.getJSONObject(k);
-                    processBeanList.add(new ProcessBean(
-                            processJsonObject.getString("pcontent"),
-                            processJsonObject.getString("pic")));
-                }
-                cookBeanList.add(new CookBean(id_cook, classid_cook, name_cook,
-                        peoplenum, preparetime,
-                        cookingtime, content, picUrl,
-                        tagCook, materialBeanList, processBeanList, maryString));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,

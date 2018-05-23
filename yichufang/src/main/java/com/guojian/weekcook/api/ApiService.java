@@ -11,7 +11,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 /**
- * @author jkloshhm at 2018-05-18
+ * @author jkloshhm at 2018-05-18  网络请求接口
  */
 public interface ApiService {
 

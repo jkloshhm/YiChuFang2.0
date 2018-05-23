@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- *@author  Created by jkloshhm on 2015/6/24. 主页的FragmentPagerAdapter
+ *@author  Created by jkloshhm on 2017/6/24. 主页的FragmentPagerAdapter
  */
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private List<Fragment> list;

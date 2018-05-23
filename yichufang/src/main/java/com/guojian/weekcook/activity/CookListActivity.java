@@ -17,8 +17,8 @@ import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.CookListAdapter;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.dao.DBServices;
-import com.guojian.weekcook.dao.MyDBServiceUtils;
+import com.guojian.weekcook.db.DBServices;
+import com.guojian.weekcook.db.MyDBServiceUtils;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
 
 import java.lang.ref.WeakReference;
@@ -79,7 +79,7 @@ public class CookListActivity extends Activity {
     protected void onResume() {
         Log.i(TAG, "CookListActivity ____________onResume()");
         super.onResume();
-        initDB();
+        //initDB();
     }
 
     private void initJsonData() {
@@ -106,8 +106,8 @@ public class CookListActivity extends Activity {
             DBServices db = MyDBServiceUtils.getInstance(this);
             cookBeenArrayList = MyDBServiceUtils.getAllObject(db);
             for (int i = 0; i < cookBeenArrayList.size(); i++) {
-                String cook_id = cookBeenArrayList.get(i).getId();
-                this.cookIdList.add(cook_id);
+                String id = cookBeenArrayList.get(i).getId();
+                this.cookIdList.add(id);
             }
         } catch (Exception e) {
             e.printStackTrace();

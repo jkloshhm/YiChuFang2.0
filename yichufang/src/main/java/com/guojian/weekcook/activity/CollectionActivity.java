@@ -18,18 +18,17 @@ import android.widget.Toast;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.CookListAdapter;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.dao.DBServices;
-import com.guojian.weekcook.dao.MyDBServiceUtils;
+import com.guojian.weekcook.db.DBServices;
+import com.guojian.weekcook.db.MyDBServiceUtils;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
 
 import java.util.ArrayList;
 
 public class CollectionActivity extends AppCompatActivity {
 
-    private static DBServices db;
-    private static ArrayList<CookListBean.ResultBean.ListBean> cookBeanlist;
-    private static CookListBean.ResultBean.ListBean cookBean;
-    //private ArrayList<String> array = new ArrayList<String>();
+    private DBServices db;
+    private ArrayList<CookListBean.ResultBean.ListBean> cookBeanlist;
+    private CookListBean.ResultBean.ListBean cookBean;
     private CookListAdapter adapter;
     private ListView lv;
 
@@ -38,7 +37,7 @@ public class CollectionActivity extends AppCompatActivity {
         Log.i("jkloshhm", "CollectionActivity____________onCreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
-        StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(),R.color.red_theme,null), false);
+        StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.red_theme, null), false);
         lv = (ListView) findViewById(R.id.lv_my_collection_list);
         final LinearLayout mBackLinearLayout = (LinearLayout) findViewById(R.id.ll_back_to_my_home);
         if (mBackLinearLayout != null) {
@@ -86,11 +85,9 @@ public class CollectionActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        MyDBServiceUtils.delectData(cookBean, db);
-                        //Toast.makeText(CollectionActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                        MyDBServiceUtils.deleteData(cookBean, db);
                         initDB();
-                        Toast.makeText(CollectionActivity.this, "已取消收藏~", Toast.LENGTH_SHORT)
-                                .show();
+                        Toast.makeText(CollectionActivity.this, "已取消收藏~", Toast.LENGTH_SHORT).show();
                     }
                 });
         builder.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
@@ -109,13 +106,8 @@ public class CollectionActivity extends AppCompatActivity {
 
 
     private void initDB() {
-        db = MyDBServiceUtils.getInstance(this);
+        db = MyDBServiceUtils.getInstance(getApplicationContext());
         cookBeanlist = MyDBServiceUtils.getAllObject(db);
-        Log.i("jkloshhm", "CollectionActivity____________cookBeanlist.size()" + cookBeanlist.size());
-        /*for (int i = 0; i < cookBeanlist.size(); i++) {
-            String object = cookBeanlist.get(i).getName_cook();
-            this.array.add(object);
-        }*/
         adapter = new CookListAdapter(this, cookBeanlist);
         lv.setAdapter(adapter);
     }
@@ -137,18 +129,4 @@ public class CollectionActivity extends AppCompatActivity {
         initDB();
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 }

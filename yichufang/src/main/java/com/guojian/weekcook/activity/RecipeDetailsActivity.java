@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -30,8 +29,8 @@ import com.guojian.weekcook.adapter.MaterialAdapter;
 import com.guojian.weekcook.adapter.ProcessAdapter;
 import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.bean.StepViewPagerBean;
-import com.guojian.weekcook.dao.DBServices;
-import com.guojian.weekcook.dao.MyDBServiceUtils;
+import com.guojian.weekcook.db.DBServices;
+import com.guojian.weekcook.db.MyDBServiceUtils;
 import com.guojian.weekcook.utils.GetBitmapFromSdCardUtil;
 import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 import com.guojian.weekcook.utils.ScreenShotUtils;
@@ -40,58 +39,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author jkloshhm on 2016-11-17  菜谱详情页面Activity
+ */
 
 public class RecipeDetailsActivity extends Activity implements MyScrollView.OnScrollListener {
     private static DBServices db;
     private static ArrayList<String> cookIdList = new ArrayList<>();
     private static ProgressDialog dialog;
-    private String realIp;
     private CookListBean.ResultBean.ListBean cookBean;
     private ImageView mCollectImg, mDetailsImage;
     private ListView mListViewMaterial, mListViewProcess;
-    private LinearLayout mDetailsTitleLinearLayout, mCollectLinearLayout, mButtonBack,
-            mShareLinearLayout, mEndMessage, mEndMessageScreenShot;
+    private LinearLayout mDetailsTitleLinearLayout, mCollectLinearLayout, mButtonBack, mShareLinearLayout;
     private MyScrollView mScrollView;
-    private boolean isRed;
+    private boolean isCollected;
     private TextView mTitleName, mName, mContent, mPeopleNum, mCookingTime, mTag, mTotalSteps;
     private final static String TAG = "RecipeDetailsActivity";
     private int screenWidth;
     private int mDetailsTitleHeight;
-    private int mScrollViewTop;
     private List<CookListBean.ResultBean.ListBean.ProcessBean> processBeenList;
+    private Context mContext;
+    private String realIp;
 
-
-    //是否取消收藏
-    public void setCancelCollection() {
-        //提示对话框
-        AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setView(getLayoutInflater().inflate(R.layout.alert_dialog_view, null));
-        builder.setButton(DialogInterface.BUTTON_POSITIVE, "移除",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mCollectImg.setImageDrawable(getResources()
-                                .getDrawable(R.mipmap.cook_no_collected_white));
-                        isRed = false;
-                        Toast.makeText(RecipeDetailsActivity.this, "已取消收藏~", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
-        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.show();
-        Button pButton = builder.getButton(DialogInterface.BUTTON_POSITIVE);
-        pButton.setTextColor(getResources().getColor(R.color.red_theme));
-        Button nButton = builder.getButton(DialogInterface.BUTTON_NEGATIVE);
-        nButton.setTextColor(getResources().getColor(R.color.gray));
-    }
-
-    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +78,6 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
                 dialog = new ProgressDialog(RecipeDetailsActivity.this);
                 dialog.setMessage(" 截屏中，请稍等...");
                 dialog.show();
-                //开始执行AsyncTask，并传入某些数据
-                //mEndMessage.setVisibility(View.GONE);
-                //mEndMessageScreenShot.setVisibility(View.VISIBLE);
                 new ScreenShotTask().execute("New Text");
             }
         });
@@ -119,98 +85,19 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
         WindowManager mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         screenWidth = mWindowManager.getDefaultDisplay().getWidth();
 
-    }
-
-    @Override
-    public void onScroll(int scrollY) {
-
-        if (scrollY >= screenWidth - mDetailsTitleHeight) {
-            mTitleName.setVisibility(View.VISIBLE);
-            mDetailsTitleLinearLayout.setBackgroundColor(getResources()
-                    .getColor(R.color.red_theme));
-        } else if (scrollY > 0 && scrollY <= screenWidth - mDetailsTitleHeight) {
-            updateActionBarAlpha(scrollY * (255 - 25) / (screenWidth - mDetailsTitleHeight) + 25);
-            mDetailsTitleLinearLayout.setBackgroundColor(getResources()
-                    .getColor(R.color.white_00FFFFFF));
-        } else if (scrollY <= screenWidth - mDetailsTitleHeight) {
-            mTitleName.setVisibility(View.GONE);
-            mDetailsTitleLinearLayout.setBackgroundColor(getResources()
-                    .getColor(R.color.white_00FFFFFF));
-        }
-    }
-
-    /**
-     * 窗口有焦点的时候，即所有的布局绘制完毕的时候，我们来获取购买布局的高度和myScrollView距离父类布局的顶部位置
-     */
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            mDetailsTitleHeight = mDetailsTitleLinearLayout.getHeight();
-            //buyLayoutTop = mBuyLayout.getTop();
-            mScrollViewTop = mScrollView.getTop();
-        }
-    }
-
-    public void setActionBarAlpha(int alpha) throws Exception {
-        if (mDetailsTitleLinearLayout == null || mScrollView == null) {
-            throw new Exception("acitonBar is not binding or bgDrawable is not set.");
-        }
-        mDetailsTitleLinearLayout.setAlpha(alpha);
-        //mActionBar.setBackgroundDrawable(mBgDrawable);
-    }
-
-    void updateActionBarAlpha(int alpha) {
-        try {
-            setActionBarAlpha(alpha);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initViews() {
-        mTitleName = (TextView) findViewById(R.id.tv_details_cook_title_name);
-        //ImageView mShareImg = (ImageView) findViewById(R.id.iv_share_the_cook_data);
-        mScrollView = (MyScrollView) findViewById(R.id.scrollView_details);
-        mDetailsTitleLinearLayout = (LinearLayout) findViewById(R.id.ll_details_title);
-        mShareLinearLayout = (LinearLayout) findViewById(R.id.ll_share_the_cook_data);
-        mButtonBack = (LinearLayout) findViewById(R.id.ll_details_back_to_list);
-        mCollectLinearLayout = (LinearLayout) findViewById(R.id.ll_collect_the_cook_data);
-        mCollectImg = (ImageView) findViewById(R.id.iv_collection_img);
-        mDetailsImage = (ImageView) findViewById(R.id.iv_details_img);
-        mName = (TextView) findViewById(R.id.tv_details_cook_name);
-        mContent = (TextView) findViewById(R.id.tv_details_cook_content);
-        mPeopleNum = (TextView) findViewById(R.id.tv_details_cook_peoplenum);
-        mCookingTime = (TextView) findViewById(R.id.tv_details_cook_cookingtime);
-        mTag = (TextView) findViewById(R.id.tv_details_cook_tag);
-        mListViewMaterial = (ListView) findViewById(R.id.lv_listview_material);
-        mListViewProcess = (ListView) findViewById(R.id.lv_listview_process);
-        //mlinearLayout = (LinearLayout) findViewById(R.id.linear1);
-        mEndMessage = (LinearLayout) findViewById(R.id.ll_end_message);
-        mEndMessageScreenShot = (LinearLayout) findViewById(R.id.ll_end_message_screen_shot);
-        mTotalSteps = (TextView) findViewById(R.id.tv_cook_total_process);
-    }
-
-    @Override
-    protected void onResume() {
-        //Log.i(TAG, "RecipeDetailsActivity ____________onResume()");
-        super.onResume();
+        //初始化数据库
         initDB();
         Intent intent = this.getIntent();
         cookBean = (CookListBean.ResultBean.ListBean) intent.getSerializableExtra("cookBean01");
         setUpViews();
-        //realIp = cookBean.getReal_ip();
-        Log.i(TAG, "realIp==" + realIp);
-        if (/*realIp.equals("mary") && !*/cookIdList.contains(cookBean.getId())) {
-            mCollectImg.setImageDrawable(getResources()
-                    .getDrawable(R.mipmap.cook_no_collected_white));
-            isRed = false;
+        if (cookIdList.contains(cookBean.getId())) {
+            mCollectImg.setImageDrawable(getResources().getDrawable(R.mipmap.cook_collected_white));
+            isCollected = true;
         } else {
-            mCollectImg.setImageDrawable(getResources()
-                    .getDrawable(R.mipmap.cook_collected_white));
-            isRed = true;
+            mCollectImg.setImageDrawable(getResources().getDrawable(R.mipmap.cook_no_collected_white));
+            isCollected = false;
         }
-        Log.i(TAG, "isRed==" + realIp);
+
         mButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,54 +107,55 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
         mCollectLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isRed) {//删除
+                //删除
+                if (isCollected) {
                     setCancelCollection();
                 } else {
-                    mCollectImg.setImageDrawable(getResources()
-                            .getDrawable(R.mipmap.cook_collected_white));
-                    isRed = true;
+                    MyDBServiceUtils.saveData(cookBean, db);
+                    mCollectImg.setImageDrawable(getResources().getDrawable(R.mipmap.cook_collected_white));
+                    isCollected = true;
                     Toast.makeText(RecipeDetailsActivity.this, "收藏成功~", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
 
-    @Override
+/*    @Override
     protected void onPause() {
         Log.i(TAG, "DetailsActivity_onPause()");
         super.onPause();
-        if (/*realIp.equals("mary") &&*/ !cookIdList.contains(cookBean.getId())) {
-            if (isRed) {//保存
+        if (*//*realIp.equals("mary") &&*//* !cookIdList.contains(cookBean.getId())) {
+            if (isCollected) {//保存
                 MyDBServiceUtils.saveData(cookBean, db);
             }
         } else {
-            if (!isRed) {//删除
-                MyDBServiceUtils.delectData(cookBean, db);
+            if (!isCollected) {//删除
+                MyDBServiceUtils.deleteData(cookBean, db);
                 //cookBean.setReal_ip("mary");
             }
         }
-    }
+    }*/
 
     private void initDB() {
         cookIdList.clear();
         db = MyDBServiceUtils.getInstance(this);
         ArrayList<CookListBean.ResultBean.ListBean> cookBeanList = MyDBServiceUtils.getAllObject(db);
         for (int i = 0; i < cookBeanList.size(); i++) {
-            String cook_id = cookBeanList.get(i).getId();
-            cookIdList.add(cook_id);
+            String id = cookBeanList.get(i).getId();
+            cookIdList.add(id);
         }
     }
 
     private void setUpViews() {
         mTitleName.setText(cookBean.getName());
         mName.setText(cookBean.getName());
-        ImageLoaderWithGlide.loadImage(mContext,cookBean.getPic(),mDetailsImage);
+        ImageLoaderWithGlide.loadImage(mContext, cookBean.getPic(), mDetailsImage);
         String mContentString = cookBean.getContent().replace("<br />", "");
         mContent.setText(mContentString);
         String mPeopleNumString = "用餐人数: " + cookBean.getPeoplenum();
@@ -346,7 +234,6 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     }
 
 
-
     String screenShotFileName = null;
 
     private class ScreenShotTask extends AsyncTask<String, Void, String> {
@@ -356,7 +243,7 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
                 if (GetBitmapFromSdCardUtil.hasSdcard()) {
                     try {
                         Bitmap mScreenShotBitmap = ScreenShotUtils.getScrollViewBitmap(mScrollView);
-                        screenShotFileName = ScreenShotUtils.savePic(mScreenShotBitmap,cookBean.getId());
+                        screenShotFileName = ScreenShotUtils.savePic(mScreenShotBitmap, cookBean.getId());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -382,6 +269,106 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
                     "我正在使用《易厨房》APP分享菜谱,下载地址：http://a.app.qq.com/o/simple.jsp?pkgname=com.guojian.weekcook",
                     screenShotFileName);
         }
+    }
+
+    /**
+     * 是否取消收藏
+     */
+    public void setCancelCollection() {
+        //提示对话框
+        AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setView(getLayoutInflater().inflate(R.layout.alert_dialog_view, null));
+        builder.setButton(DialogInterface.BUTTON_POSITIVE, "移除",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MyDBServiceUtils.deleteData(cookBean, db);
+                        mCollectImg.setImageDrawable(getResources().getDrawable(R.mipmap.cook_no_collected_white));
+                        isCollected = false;
+                        Toast.makeText(RecipeDetailsActivity.this, "已取消收藏~", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        builder.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        isCollected = true;
+                    }
+                });
+        builder.show();
+        Button pButton = builder.getButton(DialogInterface.BUTTON_POSITIVE);
+        pButton.setTextColor(getResources().getColor(R.color.red_theme));
+        Button nButton = builder.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nButton.setTextColor(getResources().getColor(R.color.gray));
+    }
+
+
+    @Override
+    public void onScroll(int scrollY) {
+
+        if (scrollY >= screenWidth - mDetailsTitleHeight) {
+            mTitleName.setVisibility(View.VISIBLE);
+            mDetailsTitleLinearLayout.setBackgroundColor(getResources()
+                    .getColor(R.color.red_theme));
+        } else if (scrollY > 0 && scrollY <= screenWidth - mDetailsTitleHeight) {
+            updateActionBarAlpha(scrollY * (255 - 25) / (screenWidth - mDetailsTitleHeight) + 25);
+            mDetailsTitleLinearLayout.setBackgroundColor(getResources()
+                    .getColor(R.color.white_00FFFFFF));
+        } else if (scrollY <= screenWidth - mDetailsTitleHeight) {
+            mTitleName.setVisibility(View.GONE);
+            mDetailsTitleLinearLayout.setBackgroundColor(getResources()
+                    .getColor(R.color.white_00FFFFFF));
+        }
+    }
+
+    /**
+     * 窗口有焦点的时候，即所有的布局绘制完毕的时候，我们来获取购买布局的高度和myScrollView距离父类布局的顶部位置
+     */
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            mDetailsTitleHeight = mDetailsTitleLinearLayout.getHeight();
+            //buyLayoutTop = mBuyLayout.getTop();
+        }
+    }
+
+    public void setActionBarAlpha(int alpha) throws Exception {
+        if (mDetailsTitleLinearLayout == null || mScrollView == null) {
+            throw new Exception("acitonBar is not binding or bgDrawable is not set.");
+        }
+        mDetailsTitleLinearLayout.setAlpha(alpha);
+        //mActionBar.setBackgroundDrawable(mBgDrawable);
+    }
+
+    void updateActionBarAlpha(int alpha) {
+        try {
+            setActionBarAlpha(alpha);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initViews() {
+        mTitleName = (TextView) findViewById(R.id.tv_details_cook_title_name);
+        //ImageView mShareImg = (ImageView) findViewById(R.id.iv_share_the_cook_data);
+        mScrollView = (MyScrollView) findViewById(R.id.scrollView_details);
+        mDetailsTitleLinearLayout = (LinearLayout) findViewById(R.id.ll_details_title);
+        mShareLinearLayout = (LinearLayout) findViewById(R.id.ll_share_the_cook_data);
+        mButtonBack = (LinearLayout) findViewById(R.id.ll_details_back_to_list);
+        mCollectLinearLayout = (LinearLayout) findViewById(R.id.ll_collect_the_cook_data);
+        mCollectImg = (ImageView) findViewById(R.id.iv_collection_img);
+        mDetailsImage = (ImageView) findViewById(R.id.iv_details_img);
+        mName = (TextView) findViewById(R.id.tv_details_cook_name);
+        mContent = (TextView) findViewById(R.id.tv_details_cook_content);
+        mPeopleNum = (TextView) findViewById(R.id.tv_details_cook_peoplenum);
+        mCookingTime = (TextView) findViewById(R.id.tv_details_cook_cookingtime);
+        mTag = (TextView) findViewById(R.id.tv_details_cook_tag);
+        mListViewMaterial = (ListView) findViewById(R.id.lv_listview_material);
+        mListViewProcess = (ListView) findViewById(R.id.lv_listview_process);
+        mTotalSteps = (TextView) findViewById(R.id.tv_cook_total_process);
     }
 
 }
