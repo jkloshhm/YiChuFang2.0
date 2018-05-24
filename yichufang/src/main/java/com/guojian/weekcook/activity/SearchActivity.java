@@ -20,6 +20,9 @@ import android.widget.Toast;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
 
+/**
+ * @author jkloshhm 2017-01-23 搜索页
+ */
 public class SearchActivity extends Activity {
     private EditText editText;
     private String hotSreachName[] = {"土豆", "红烧肉", "韭菜", "鱼", "汤", "排骨", "早餐", "批萨"};

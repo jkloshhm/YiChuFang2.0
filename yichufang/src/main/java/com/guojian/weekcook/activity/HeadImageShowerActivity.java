@@ -13,6 +13,9 @@ import android.widget.LinearLayout;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.utils.GetBitmapFromSdCardUtil;
 
+/**
+ * @author jkloshhm 2017-11-23  我的头像大图页面
+ */
 public class HeadImageShowerActivity extends AppCompatActivity {
 
     @Override

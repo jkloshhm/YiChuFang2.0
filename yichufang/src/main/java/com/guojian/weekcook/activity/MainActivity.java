@@ -29,7 +29,9 @@ import com.guojian.weekcook.utils.DensityUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author jkloshhm 2017-01-13  主activity
+ */
 public class MainActivity extends FragmentActivity {
     private ViewPager viewPager;
     private RadioButton rbSearch, rbClass, rbDiscovery, rbMe;
@@ -106,27 +108,7 @@ public class MainActivity extends FragmentActivity {
         rbClass = (RadioButton) findViewById(R.id.rb_class);
         //rbDiscovery = (RadioButton) findViewById(R.id.rb_discovery);
         rbMe = (RadioButton) findViewById(R.id.rb_me);
-        /*for(int i = 0;i<3;i++) {
-            RadioButton rb = (RadioButton) radioGroup.getChildAt(i);
-            if (i == 0) {
-                rb.setChecked(true);
-            }
-            int width = DensityUtils.dp2px(MainActivity.this, 30);
-            //drawables[i] = rb.getCompoundDrawables();
-            d = rb.getCompoundDrawables();
-            d[i].setBounds(0, 0, width, width);
-            //rb.setCompoundDrawables(null, d[i], null, null);
-        }*/
-        /*int width = DensityUtils.dp2px(MainActivity.this, 30);
-        d = rbMe.getCompoundDrawables();
-        d[0].setBounds(0, 0, width, width);*/
-        //定义底部标签图片大小
-        /*Rect rect = new Rect();
-        rect.set(0,0,92,92);
-        //注意 xml没有设置 drawableTop 的图片话  drawableT 为null 的情况
-        Drawable drawableT = rbMe.getCompoundDrawables()[1];
-        drawableT.setBounds(rect);// 大小和位置控制
-        rbMe.setCompoundDrawables(null,drawableT,null,null);*/
+        
 
         int width = DensityUtils.dp2px(MainActivity.this, 22);
         Log.i(TAG, "width===" + width);

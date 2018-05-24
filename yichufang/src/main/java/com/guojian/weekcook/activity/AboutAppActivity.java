@@ -5,8 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.guojian.weekcook.R;
 
+
 /**
- *
+ * @author jack.guo 2018-02-12  打赏页面Activity
  */
 
 public class AboutAppActivity extends AppCompatActivity {

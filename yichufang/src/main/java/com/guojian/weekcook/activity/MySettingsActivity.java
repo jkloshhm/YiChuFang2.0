@@ -27,6 +27,9 @@ import com.guojian.weekcook.utils.MethodsCompat;
 import java.io.File;
 import java.util.Properties;
 
+/**
+ * @author jkloshhm 2017-01-23  设置页面
+ */
 public class MySettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = "MySettingsActivity";

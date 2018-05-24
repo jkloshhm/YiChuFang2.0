@@ -25,6 +25,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author jack.guo 2017-02-12  菜谱列表页面Activity
+ */
 public class CookListActivity extends Activity {
     private static List<CookListBean.ResultBean.ListBean> cookBeanList = new ArrayList<>();
 

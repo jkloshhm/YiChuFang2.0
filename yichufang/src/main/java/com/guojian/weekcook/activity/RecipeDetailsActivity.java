@@ -126,22 +126,6 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
         super.onDestroy();
     }
 
-/*    @Override
-    protected void onPause() {
-        Log.i(TAG, "DetailsActivity_onPause()");
-        super.onPause();
-        if (*//*realIp.equals("mary") &&*//* !cookIdList.contains(cookBean.getId())) {
-            if (isCollected) {//保存
-                MyDBServiceUtils.saveData(cookBean, db);
-            }
-        } else {
-            if (!isCollected) {//删除
-                MyDBServiceUtils.deleteData(cookBean, db);
-                //cookBean.setReal_ip("mary");
-            }
-        }
-    }*/
-
     private void initDB() {
         cookIdList.clear();
         db = MyDBServiceUtils.getInstance(this);

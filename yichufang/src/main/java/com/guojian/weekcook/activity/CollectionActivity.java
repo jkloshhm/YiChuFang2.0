@@ -24,6 +24,9 @@ import com.guojian.weekcook.statusbar.StatusBarCompat;
 
 import java.util.ArrayList;
 
+/**
+ * @author jack.guo 2017-02-12  收藏页面Activity
+ */
 public class CollectionActivity extends AppCompatActivity {
 
     private DBServices db;

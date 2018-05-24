@@ -29,7 +29,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
+/**
+ * @author jkloshhm 2017-01-23  个人信息页面
+ */
 public class MyInformationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String TAG = "MyInformationActivity_loglog";

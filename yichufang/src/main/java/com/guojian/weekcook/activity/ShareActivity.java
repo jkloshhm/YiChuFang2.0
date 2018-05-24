@@ -23,8 +23,7 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 
 /**
- * @author jack.guo 2018-01-23
- *
+ * @author jkloshhm 2018-01-23 分享页面
  */
 
 public class ShareActivity extends AppCompatActivity {
@@ -83,7 +82,7 @@ public class ShareActivity extends AppCompatActivity {
             oks.setImagePath(fileName);//确保SDcard下面存在此张图片
 
             oks.setImagePath(fileName);//确保SDcard下面存在此张图片
-        }else{
+        } else {
             oks.setTitle("《易厨房》--推荐下载");
             oks.setTitleUrl("http://a.app.qq.com/o/simple.jsp?pkgname=com.guojian.weekcook");
             oks.setText("一款史上最简洁易用的菜谱类APP，快来和我一起使用吧。");
@@ -124,9 +123,10 @@ public class ShareActivity extends AppCompatActivity {
     }
 
 
-    private void DismissPopupWindow(){
+    private void DismissPopupWindow() {
         this.finish();
     }
+
     private void ShareAppPopupWindow(final String fileName) {
         // 获取自定义布局文件activity_popupwindow_left.xml的视图
 
@@ -146,7 +146,7 @@ public class ShareActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
                 Platform plat = ShareSDK.getPlatform(Wechat.NAME);
-                showShareAPP(plat.getName(),fileName);
+                showShareAPP(plat.getName(), fileName);
                 DismissPopupWindow();
             }
         });
@@ -158,7 +158,7 @@ public class ShareActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
                 Platform plat = ShareSDK.getPlatform(WechatMoments.NAME);
-                showShareAPP(plat.getName(),fileName);
+                showShareAPP(plat.getName(), fileName);
                 DismissPopupWindow();
             }
         });
@@ -170,7 +170,7 @@ public class ShareActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
                 Platform plat = ShareSDK.getPlatform(QQ.NAME);
-                showShareAPP(plat.getName(),fileName);
+                showShareAPP(plat.getName(), fileName);
                 DismissPopupWindow();
             }
         });
@@ -183,7 +183,7 @@ public class ShareActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //比如分享到QQ，其他平台则只需要更换平台类名，例如Wechat.NAME则是微信
                 Platform plat = ShareSDK.getPlatform(SinaWeibo.NAME);
-                showShareAPP(plat.getName(),fileName);
+                showShareAPP(plat.getName(), fileName);
                 DismissPopupWindow();
             }
         });

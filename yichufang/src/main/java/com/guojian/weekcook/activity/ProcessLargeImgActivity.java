@@ -12,6 +12,10 @@ import com.guojian.weekcook.bean.StepViewPagerBean;
 
 import java.util.List;
 
+/**
+ * @author jkloshhm 2017-01-23  菜谱制作步骤大图页面
+ */
+
 public class ProcessLargeImgActivity extends AppCompatActivity {
 
     private ProcessViewPager mProcessViewPager;

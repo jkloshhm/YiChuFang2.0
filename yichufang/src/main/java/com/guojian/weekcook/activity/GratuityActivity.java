@@ -22,9 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 打赏Activity
- *
- * @author jack.guo 2018-02-12
+ * @author jack.guo 2018-02-12  打赏页面Activity
  */
 public class GratuityActivity extends AppCompatActivity implements View.OnClickListener {
 

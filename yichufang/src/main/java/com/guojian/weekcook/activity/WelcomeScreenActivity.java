@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 
+/**
+ * @author jkloshhm 2017-01-23 开屏页
+ */
 public class WelcomeScreenActivity extends Activity {
 
     private static final String TAG = "VerticalSplash";
