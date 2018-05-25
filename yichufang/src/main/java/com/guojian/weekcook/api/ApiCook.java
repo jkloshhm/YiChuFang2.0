@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 /**
  * @author jkloshhm at 2018-05-18  网络请求接口
  */
-public interface ApiService {
+public interface ApiCook {
 
     /**
      * 根据菜谱名称查询
@@ -30,7 +30,7 @@ public interface ApiService {
 
 
     /**
-     * 按分类检索接
+     * 按分类检索接口
      * 请求示例：http://jisusrecipe.market.alicloudapi.com/recipe/byclass?classid=2&num=10&start=0
      *
      * @param classid 菜谱分类的id
@@ -56,7 +56,7 @@ public interface ApiService {
 
 
     /**
-     * 按id检索接口
+     * 检索菜谱分类接口
      * 请求示例：http://jisusrecipe.market.alicloudapi.com/recipe/class
      *
      * @return CookClassBean

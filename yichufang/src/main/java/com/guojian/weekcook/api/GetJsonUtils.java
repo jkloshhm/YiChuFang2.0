@@ -32,8 +32,8 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService mApiService = retrofit.create(ApiService.class);
-        Call<CookListBean> responseBodyCall = mApiService.getDataByKeyword(name, 50, 0);
+        ApiCook mApiCook = retrofit.create(ApiCook.class);
+        Call<CookListBean> responseBodyCall = mApiCook.getDataByKeyword(name, 50, 0);
         responseBodyCall.enqueue(new Callback<CookListBean>() {
             @Override
             public void onResponse(Call<CookListBean> call, Response<CookListBean> response) {
@@ -69,8 +69,8 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService mApiService = retrofit.create(ApiService.class);
-        Call<CookListBean> responseBodyCall = mApiService.getDataByClassId(Integer.parseInt(classId), 50, 0);
+        ApiCook mApiCook = retrofit.create(ApiCook.class);
+        Call<CookListBean> responseBodyCall = mApiCook.getDataByClassId(Integer.parseInt(classId), 50, 0);
         responseBodyCall.enqueue(new Callback<CookListBean>() {
             @Override
             public void onResponse(Call<CookListBean> call, Response<CookListBean> response) {
@@ -102,8 +102,8 @@ public class GetJsonUtils {
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<CookDetailBean> listBeanCall = apiService.getDataById((int) nameId);
+        ApiCook apiCook = retrofit.create(ApiCook.class);
+        Call<CookDetailBean> listBeanCall = apiCook.getDataById((int) nameId);
         listBeanCall.enqueue(new Callback<CookDetailBean>() {
             @Override
             public void onResponse(Call<CookDetailBean> call, Response<CookDetailBean> response) {
@@ -131,8 +131,8 @@ public class GetJsonUtils {
                 .baseUrl("http://jisusrecipe.market.alicloudapi.com/recipe/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<CookClassBean> listBeanCall = apiService.getDataClass();
+        ApiCook apiCook = retrofit.create(ApiCook.class);
+        Call<CookClassBean> listBeanCall = apiCook.getDataClass();
         listBeanCall.enqueue(new Callback<CookClassBean>() {
             @Override
             public void onResponse(Call<CookClassBean> call, Response<CookClassBean> response) {
