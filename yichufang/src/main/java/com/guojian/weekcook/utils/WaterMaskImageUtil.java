@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 
 /**
- * Created by guojian on 1/11/17.
+ * @author guojian on 1/11/17.
  */
 
 public class WaterMaskImageUtil {

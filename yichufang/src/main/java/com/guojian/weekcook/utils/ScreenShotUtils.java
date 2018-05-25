@@ -22,19 +22,23 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created on 16/11/13.
- *
- * @author jack.guo
- *
  * 菜谱详情页分享截取屏幕长图的工具类
+ *
+ * @author jkloshhm Created on 16/11/13.
  */
 
 public class ScreenShotUtils {
 
-    private static String DCIMCamera_PATH = Environment.getExternalStorageDirectory()+ "/YiChuFang/ScreenShotImg/";
+    private static String DCIMCamera_PATH = Environment.getExternalStorageDirectory() + "/YiChuFang/ScreenShotImg/";
     private static String TAG = "截图:";
 
-    // 保存到sdcard
+    /**
+     * 保存到sdcard
+     *
+     * @param mBitmap mBitmap
+     * @param id      cookId
+     * @return screenShotFileName路径
+     */
     public static String savePic(Bitmap mBitmap, String id) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm", Locale.US);
         // 如果文件夹不存在，则创建一个新文件夹
@@ -47,7 +51,7 @@ public class ScreenShotUtils {
         if (GetBitmapFromSdCardUtil.hasSdcard()) {
             File file = new File(DCIMCamera_PATH);
             file.mkdirs();// 创建文件夹
-            String fileName = DCIMCamera_PATH +"YiChuFang_ScreenShot_"+id+ sdf.format(new Date()) + ".jpg";
+            String fileName = DCIMCamera_PATH + "YiChuFang_ScreenShot_" + id + sdf.format(new Date()) + ".jpg";
             try {
                 b = new FileOutputStream(fileName);
                 // 把数据写入文件并压缩
@@ -72,7 +76,7 @@ public class ScreenShotUtils {
 
     /**
      * 截取scrollview的屏幕
-     **/
+     */
     public static Bitmap getScrollViewBitmap(ScrollView scrollView) {
         int h = 0;
         Bitmap bitmap;
@@ -96,8 +100,8 @@ public class ScreenShotUtils {
     /**
      * 压缩图片
      *
-     * @param image
-     * @return
+     * @param image Bitmap
+     * @return Bitmap
      */
     public static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -122,7 +126,11 @@ public class ScreenShotUtils {
 
     /**
      * 截图listview
-     **/
+     *
+     * @param listView listView
+     * @param picpath  picpath
+     * @return bitmap
+     */
     public static Bitmap getListViewBitmap(ListView listView, String picpath) {
         int h = 0;
         Bitmap bitmap;
@@ -155,7 +163,12 @@ public class ScreenShotUtils {
         return bitmap;
     }
 
-    // 获取指定Activity的截屏，保存到png文件
+    /**
+     * 获取指定Activity的截屏，保存到png文件
+     *
+     * @param activity 传过来的activity
+     * @return Bitmap
+     */
     public static Bitmap takeScreenShot(Activity activity) {
         // View是你需要截图的View
         View view = activity.getWindow().getDecorView();
@@ -174,8 +187,7 @@ public class ScreenShotUtils {
         int height = activity.getWindowManager().getDefaultDisplay().getHeight();
         // 去掉标题栏
         // Bitmap b = Bitmap.createBitmap(b1, 0, 25, 320, 455);
-        Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height
-                - statusBarHeight);
+        Bitmap b = Bitmap.createBitmap(b1, 0, statusBarHeight, width, height - statusBarHeight);
         view.destroyDrawingCache();
         return b;
     }

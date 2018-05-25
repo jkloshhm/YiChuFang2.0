@@ -37,6 +37,8 @@ import java.util.concurrent.TimeUnit;
  * 使用了ImageLoader 对图片进行加载，所以使用前必须初始化ImageLoader<br>
  * stopPlaying() 当轮播所在页面不在顶栈时，有必要停止定时并且释放资源<br>
  * startPlaying() 当再次恢复时调用<br>
+ *
+ * @author jkloshhm
  */
 public class AutoPlayingViewPager extends FrameLayout {
 
@@ -307,7 +309,7 @@ public class AutoPlayingViewPager extends FrameLayout {
                 });
             }
             if (!TextUtils.isEmpty(cookBean.getPic())) {//通过URL时使用ImageLoader加载图片
-                ImageLoaderWithGlide.loadImage(mContext,cookBean.getPic(),imageView);
+                ImageLoaderWithGlide.loadImage(mContext, cookBean.getPic(), imageView);
             }
             if (!TextUtils.isEmpty(cookBean.getName())) {//有标题数据才显示
                 labelTitle.setText(cookBean.getName());

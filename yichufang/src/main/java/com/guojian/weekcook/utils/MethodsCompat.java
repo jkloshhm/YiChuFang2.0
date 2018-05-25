@@ -14,13 +14,11 @@ import android.view.Window;
 
 import java.io.File;
 
-/**
- * Created by guojian on 11/30/16.
- */
-
 
 /**
  * Android各版本的兼容方法
+ *
+ * @author guojian on 11/30/16.
  */
 public class MethodsCompat {
 
@@ -34,7 +32,7 @@ public class MethodsCompat {
     @TargetApi(7)
     public static Bitmap getThumbnail(ContentResolver cr, long origId, int kind,
                                       BitmapFactory.Options options) {
-        return MediaStore.Images.Thumbnails.getThumbnail(cr,origId,kind, options);
+        return MediaStore.Images.Thumbnails.getThumbnail(cr, origId, kind, options);
     }
 
     @TargetApi(8)

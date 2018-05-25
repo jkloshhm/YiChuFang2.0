@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.widget.ScrollView;
 
 /**
- * Created by guojian on 12/9/16.
+ * @author guojian on 12/9/16.
  */
 public class MyScrollView extends ScrollView {
 
@@ -20,7 +20,9 @@ public class MyScrollView extends ScrollView {
     private int lastScrollY;
 
 
-    // 这个值控制可以把ScrollView包裹的控件拉出偏离顶部或底部的距离。
+    /**
+     * 这个值控制可以把ScrollView包裹的控件拉出偏离顶部或底部的距离。
+     */
     private static final int MAX_OVERSCROLL_Y = 0;
 
     private Context mContext;
@@ -74,6 +76,7 @@ public class MyScrollView extends ScrollView {
 
     /**
      * 设置滚动接口
+     *
      * @param onScrollListener
      */
     public void setOnScrollListener(OnScrollListener onScrollListener) {
@@ -90,15 +93,17 @@ public class MyScrollView extends ScrollView {
             int scrollY = MyScrollView.this.getScrollY();
 
             //此时的距离和记录下的距离不相等，在隔5毫秒给handler发送消息
-            if(lastScrollY != scrollY){
+            if (lastScrollY != scrollY) {
                 lastScrollY = scrollY;
                 handler.sendMessageDelayed(handler.obtainMessage(), 5);
             }
-            if(onScrollListener != null){
+            if (onScrollListener != null) {
                 onScrollListener.onScroll(scrollY);
             }
 
-        };
+        }
+
+        ;
 
     };
 
@@ -110,10 +115,10 @@ public class MyScrollView extends ScrollView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if(onScrollListener != null){
+        if (onScrollListener != null) {
             onScrollListener.onScroll(lastScrollY = this.getScrollY());
         }
-        switch(ev.getAction()){
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_UP:
                 handler.sendMessageDelayed(handler.obtainMessage(), 5);
                 break;
@@ -123,17 +128,15 @@ public class MyScrollView extends ScrollView {
 
 
     /**
-     *
      * 滚动的回调接口
      *
      * @author xiaanming
-     *
      */
-    public interface OnScrollListener{
+    public interface OnScrollListener {
         /**
          * 回调方法， 返回MyScrollView滑动的Y方向距离
-         * @param scrollY
-         *              、
+         *
+         * @param scrollY 、
          */
         public void onScroll(int scrollY);
     }

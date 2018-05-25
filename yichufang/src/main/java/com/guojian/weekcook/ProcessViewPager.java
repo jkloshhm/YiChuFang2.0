@@ -27,6 +27,8 @@ import java.util.List;
  * 使用了ImageLoader 对图片进行加载，所以使用前必须初始化ImageLoader<br>
  * stopPlaying() 当轮播所在页面不在顶栈时，有必要停止定时并且释放资源<br>
  * startPlaying() 当再次恢复时调用<br>
+ *
+ * @author jkloshhm
  */
 public class ProcessViewPager extends FrameLayout {
 
@@ -95,6 +97,7 @@ public class ProcessViewPager extends FrameLayout {
          */
         //void onPageItemClick(int position, ProcessBean processBean);
     }
+
     /**
      * 初始化Views 及组件UI
      */
@@ -110,7 +113,7 @@ public class ProcessViewPager extends FrameLayout {
         mViewPager = (ViewPager) findViewById(R.id.viewPager_process);
         //setViewPagerScrollSpeed();
 
-        mPosition.setText("" + (position +1) + "/" + mProcessBeanList.size());
+        mPosition.setText("" + (position + 1) + "/" + mProcessBeanList.size());
         mViewPager.setFocusable(true);
         mViewPager.setOffscreenPageLimit(2);// 设置缓存页面，当前页面的相邻N各页面都会被缓存
         mViewPager.setAdapter(new ProcessPagerAdapter());
@@ -138,10 +141,10 @@ public class ProcessViewPager extends FrameLayout {
 
             if (!TextUtils.isEmpty(processBean.getPcontent())) {//通过URL时使用ImageLoader加载图片
                 //ImageLoaderUtil.setPicBitmap(imageView, processBean.getProcess_pic());
-                ImageLoaderWithGlide.loadImage(mContext,processBean.getPic(),imageView);
+                ImageLoaderWithGlide.loadImage(mContext, processBean.getPic(), imageView);
             }
             if (!TextUtils.isEmpty(processBean.getPcontent())) {//有标题数据才显示
-                labelTitle.setText(processBean.getPcontent().replace("<br />",""));
+                labelTitle.setText(processBean.getPcontent().replace("<br />", ""));
             } else {//没有标题数据不显示文本透明背景
                 labelTitle.setBackgroundDrawable(null);
             }
@@ -178,8 +181,8 @@ public class ProcessViewPager extends FrameLayout {
         @Override
         public void onPageSelected(int pos) {
             currentItem = pos;
-            int p = (pos % IMAGE_COUNT) ;
-            mPosition.setText("" + (p+1) + "/" + IMAGE_COUNT);
+            int p = (pos % IMAGE_COUNT);
+            mPosition.setText("" + (p + 1) + "/" + IMAGE_COUNT);
 
         }
     }

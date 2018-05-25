@@ -30,6 +30,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
+ * @author copy from github
+ * <p>
  * A {@link GridView} that supports adding header rows in a
  * very similar way to {@link ListView}.
  * See {@link GridViewWithHeaderAndFooter#addHeaderView(View, Object, boolean)}

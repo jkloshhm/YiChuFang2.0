@@ -7,11 +7,7 @@ import com.bumptech.glide.Glide;
 import com.guojian.weekcook.R;
 
 /**
- * Created by jack.guo on 2018/1/26.
- * @author jack.guo
- *
- * 图片加载工具类
- *
+ * @author jkloshhm Created on 2018/1/26.  图片加载工具类
  */
 
 public class ImageLoaderWithGlide {

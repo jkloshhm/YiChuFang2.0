@@ -6,9 +6,9 @@ import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 
 /**
- * @author Created by jkloshhm on 11/16/16.
- * <p>
  * MyApplication: 自定义的MyApplication类
+ *
+ * @author jkloshhm on 11/16/16.
  */
 public class MyApplication extends TinkerApplication {
 

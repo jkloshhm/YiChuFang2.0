@@ -3,15 +3,15 @@ package com.guojian.weekcook.utils;
 import java.io.File;
 
 /**
- * Created by guojian on 11/30/16.
+ * @author guojian on 11/30/16.
  */
 public class FileUtil {
 
     /**
      * 获取目录文件大小
      *
-     * @param dir
-     * @return
+     * @param dir 目录文件
+     * @return long
      */
     public static long getDirSize(File dir) {
         if (dir == null) {
@@ -27,7 +27,8 @@ public class FileUtil {
                 dirSize += file.length();
             } else if (file.isDirectory()) {
                 dirSize += file.length();
-                dirSize += getDirSize(file); // 递归调用继续统计
+                // 递归调用继续统计
+                dirSize += getDirSize(file);
             }
         }
         return dirSize;
@@ -36,7 +37,7 @@ public class FileUtil {
     /**
      * 转换文件大小
      *
-     * @param fileS
+     * @param fileS 文件大小
      * @return B/KB/MB/GB
      */
     public static String formatFileSize(long fileS) {

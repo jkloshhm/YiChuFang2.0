@@ -16,7 +16,9 @@ import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import java.util.Locale;
 
 /**
- * Created by jack.guo on 2018/1/26.
+ * 腾讯Bugly-Tinker热更新所需要自定义的SampleApplicationLike
+ *
+ * @author jkloshhm on 2018/1/26.
  */
 
 public class SampleApplicationLike extends DefaultApplicationLike {

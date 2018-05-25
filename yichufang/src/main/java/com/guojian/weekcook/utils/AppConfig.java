@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.util.Properties;
 
 /**
- * Created by guojian on 11/30/16.
+ * @author guojian on 11/30/16.
  */
 public class AppConfig {
 
