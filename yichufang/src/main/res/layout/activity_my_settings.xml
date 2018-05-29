@@ -63,7 +63,7 @@
                 android:text="回首页"
                 android:textSize="12dp"
                 android:textColor="@color/white"
-                android:visibility="visible"/>
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 

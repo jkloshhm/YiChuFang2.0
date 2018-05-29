@@ -70,8 +70,6 @@
         <activity
             android:name=".activity.ProcessLargeImgActivity"
             android:theme="@style/AppTheme_black" />
-
-
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -95,8 +93,12 @@
             android:theme="@style/share_activity_theme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".activity.AboutAppActivity" />
-        <activity android:name=".activity.GratuityActivity"
-            android:theme="@style/AppTheme_red"/>
+        <activity
+            android:name=".activity.GratuityActivity"
+            android:theme="@style/AppTheme_red" />
+        <activity
+            android:name=".activity.UserHelpActivity"
+            android:theme="@style/AppTheme_red" />
     </application>
 
 </manifest>

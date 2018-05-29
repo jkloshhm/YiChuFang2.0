@@ -100,7 +100,8 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
             case R.id.ll_help_center:
-
+                Intent intent1 = new Intent(MySettingsActivity.this, UserHelpActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ll__settings_give_app_score:
                 try {
