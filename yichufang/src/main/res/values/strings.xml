@@ -56,5 +56,6 @@
     <string name="action_register_in_password">请输入您的密码</string>
     <string name="action_register_in_password_again">请再次输入您的密码</string>
 
-
+    <string name="jump_to_qq_description">用QQ扫描下面二维码或者直接点击下面按钮加入QQ群反馈</string>
+    <string name="jump_to_qq">加入QQ问题反馈群</string>
 </resources>
