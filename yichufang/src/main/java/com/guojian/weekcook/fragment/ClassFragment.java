@@ -124,15 +124,12 @@ public class ClassFragment extends Fragment {
         }
         if (mGridViewChildren != null) {
             try {
-                //Log.i(TAG, "mGridViewChildren 1111===" + (mGridViewChildren == null));
                 mGridViewChildren = null;
                 headerView = null;
                 footerView = null;
-                //Log.i(TAG, "mGridViewChildren 2222===" + (mGridViewChildren == null));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //Log.i(TAG, "mGridViewChildren 3333===" + (mGridViewChildren == null));
         }
     }
 
@@ -150,15 +147,7 @@ public class ClassFragment extends Fragment {
             CookClassBean cookClassBean = (CookClassBean) jsonBundle.getSerializable("stringBody");
             String classType = jsonBundle.getString("classType");
             String jsonData = jsonBundle.getString("stringBody");
-            //Log.i(TAG, "--------->>jsonData====" + jsonData);
-            //Log.i(TAG, "--------->>jsonErrorMessage====" + jsonErrorMessage);
-            /*if (jsonData != null) {
-                if (classType != null && classType.equals("getDataClass")) {//分类名称
-                    getDataAndUpdateUI(jsonData);
-                }
-            }*/
             getDataAndUpdateUI(cookClassBean);
-            //parentClassAdapter.notifyDataSetChanged();
             parentClassAdapter = new ParentClassAdapter(mContext, parentClassBeenList);
             mListViewParent.setAdapter(parentClassAdapter);
             if (parentClassBeenList.size() != 0 && parentClassBeenList.get(0) != null) {
@@ -175,11 +164,9 @@ public class ClassFragment extends Fragment {
     private void getDataAndUpdateUI(CookClassBean cookClassBean) {
         try {
             parentClassBeenList = cookClassBean.getResult();
-            //StringBuffer s = new StringBuffer();
             for (int i = 0; i < cookClassBean.getResult().size(); i++) {
                 childrenClassBeenList = cookClassBean.getResult().get(i).getList();
             }
-            //Log.i(TAG, "S=" + s);
         } catch (Exception e) {
             e.printStackTrace();
         }

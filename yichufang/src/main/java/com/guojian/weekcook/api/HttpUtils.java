@@ -1,5 +1,8 @@
 package com.guojian.weekcook.api;
 
+import com.guojian.weekcook.MyApplication;
+import com.guojian.weekcook.utils.NetWorkUtils;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -30,7 +33,7 @@ public class HttpUtils {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                if (true/*!NetWorkUtils.networkIsAvailable(AaronApplication.getObjectContext())*/) {
+                if (!NetWorkUtils.networkIsAvailable(MyApplication.getContext())) {
                     request = request.newBuilder()
                             .removeHeader("Pragma")
                             .header("Cache-Control", "private, only-if-cached, max-stale=" + NO_NET_MAX)
@@ -50,7 +53,7 @@ public class HttpUtils {
 
         OkHttpClient mClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(mInterceptor)
-                //.cache(new Cache(new File(AaronApplication.getObjectContext().getCacheDir() + "http"), 1024 * 1024 * 10))
+                .cache(new Cache(new File(MyApplication.getContext().getCacheDir() + "http"), 1024 * 1024 * 10))
                 .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -63,12 +66,12 @@ public class HttpUtils {
     /**
      * 单例设计模式
      */
-    private static class singRetrofit {
-        private static final HttpUtils instance = new HttpUtils();
+    private static class SingleRetrofit {
+        private static final HttpUtils HTTP_UTILS_INSTANCE = new HttpUtils();
     }
 
     public static HttpUtils getInstance() {
-        return singRetrofit.instance;
+        return SingleRetrofit.HTTP_UTILS_INSTANCE;
     }
 
     public static ApiCook createApiCook() {

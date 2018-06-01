@@ -1,5 +1,7 @@
 package com.guojian.weekcook;
 
+import android.content.Context;
+
 import com.mob.MobSDK;
 
 import com.tencent.tinker.loader.app.TinkerApplication;
@@ -12,6 +14,7 @@ import com.tencent.tinker.loader.shareutil.ShareConstants;
  */
 public class MyApplication extends TinkerApplication {
 
+    private static Context context;
 
     public MyApplication() {
         super(ShareConstants.TINKER_ENABLE_ALL, "com.guojian.weekcook.SampleApplicationLike",
@@ -22,5 +25,11 @@ public class MyApplication extends TinkerApplication {
     public void onCreate() {
         super.onCreate();
         MobSDK.init(this);
+
+        context = getApplicationContext();
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }
