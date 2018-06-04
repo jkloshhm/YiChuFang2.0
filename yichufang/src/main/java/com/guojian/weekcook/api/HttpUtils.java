@@ -2,17 +2,24 @@ package com.guojian.weekcook.api;
 
 import com.guojian.weekcook.MyApplication;
 import com.guojian.weekcook.utils.NetWorkUtils;
+import com.guojian.weekcook.utils.ToastUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -23,9 +30,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpUtils {
     private static final String BASE_URL = "http://jisusrecipe.market.alicloudapi.com/recipe/";
     private Retrofit retrofit;
-    //7天 无网超时时间
+    /**
+     * 7天：无网超时时间
+     */
     private static final int NO_NET_MAX = 60 * 60 * 24 * 7;
-    //30秒  有网超时时间
+    /**
+     * 30秒：有网超时时间
+     */
     private static final int NET_MAX = 30;
 
     private HttpUtils() {
@@ -53,12 +64,13 @@ public class HttpUtils {
 
         OkHttpClient mClient = new OkHttpClient.Builder()
                 .addNetworkInterceptor(mInterceptor)
+                .connectTimeout(15, TimeUnit.SECONDS)
                 .cache(new Cache(new File(MyApplication.getContext().getCacheDir() + "http"), 1024 * 1024 * 10))
                 .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(mClient)
                 .build();
     }
@@ -70,13 +82,73 @@ public class HttpUtils {
         private static final HttpUtils HTTP_UTILS_INSTANCE = new HttpUtils();
     }
 
-    public static HttpUtils getInstance() {
+    private static HttpUtils getInstance() {
         return SingleRetrofit.HTTP_UTILS_INSTANCE;
     }
 
     public static ApiCook createApiCook() {
-        //GetWeatherService getWeatherService = getInstance().retrofit.create(GetWeatherService.class);
         return getInstance().retrofit.create(ApiCook.class);
+    }
+
+    /**
+     * 执行网络请求
+     *
+     * @param observable 请求方法
+     * @param listener   ResponseListener
+     * @param <T>        泛型T
+     */
+    public static <T> void request(Observable<T> observable, final IResponseListener<T> listener) {
+
+        if (!NetWorkUtils.networkIsAvailable(MyApplication.getContext())) {
+            ToastUtils.showShortToast("网络不可用,请检查网络");
+            if (listener != null) {
+                listener.onFail();
+            }
+            return;
+        }
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<T>() {
+                               @Override
+                               public void onError(Throwable e) {
+                                   e.printStackTrace();
+                                   if (listener != null) {
+                                       listener.onFail();
+                                   }
+                               }
+
+                               @Override
+                               public void onComplete() {
+                               }
+
+                               @Override
+                               public void onSubscribe(Disposable disposable) {
+                               }
+
+                               @Override
+                               public void onNext(T data) {
+                                   if (listener != null) {
+                                       listener.onSuccess(data);
+                                   }
+                               }
+                           }
+                );
+
+
+    }
+
+    public interface IResponseListener<T> {
+        /**
+         * 请求成功回调
+         *
+         * @param data 请求返回的bean
+         */
+        void onSuccess(T data);
+
+        /**
+         * 请求失败回调
+         */
+        void onFail();
     }
 
 }

@@ -5,6 +5,8 @@ import com.guojian.weekcook.bean.CookClassBean;
 import com.guojian.weekcook.bean.CookDetailBean;
 import com.guojian.weekcook.bean.CookListBean;
 
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -64,4 +66,16 @@ public interface ApiCook {
     @Headers("Authorization:APPCODE d8da87a316f745b1b7b413d910a1ac72")
     @GET("class")
     Call<CookClassBean> getDataClass();
+
+
+    /**
+     * 检索菜谱分类接口
+     * 请求示例：http://jisusrecipe.market.alicloudapi.com/recipe/class
+     *
+     * @return CookClassBean
+     */
+    @Headers("Authorization:APPCODE d8da87a316f745b1b7b413d910a1ac72")
+    @GET("class")
+    Observable<CookClassBean> getDataClassNew();
+
 }

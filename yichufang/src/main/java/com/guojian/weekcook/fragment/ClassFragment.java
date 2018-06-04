@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +17,22 @@ import com.guojian.weekcook.R;
 import com.guojian.weekcook.activity.CookListActivity;
 import com.guojian.weekcook.adapter.ChildrenClassAdapter;
 import com.guojian.weekcook.adapter.ParentClassAdapter;
+import com.guojian.weekcook.api.ApiCook;
+import com.guojian.weekcook.api.HttpUtils;
 import com.guojian.weekcook.bean.CookClassBean;
-import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.utils.GridViewWithHeaderAndFooter;
+import com.guojian.weekcook.utils.ToastUtils;
 
-import java.lang.ref.WeakReference;
+
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * @author Created by jkloshhm on 2017/6/24. 分类页面
@@ -40,7 +48,6 @@ public class ClassFragment extends Fragment {
     private GridViewWithHeaderAndFooter mGridViewChildren;
     private ParentClassAdapter parentClassAdapter;
     private ChildrenClassAdapter childrenClassAdapter;
-    private MyHandler myHandler = new MyHandler(this);
     private View headerView, footerView;
 
     public ClassFragment() {
@@ -61,26 +68,47 @@ public class ClassFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         // Inflate the layout for this fragment
         View mClassView = inflater.inflate(R.layout.fragment_class, container, false);
         headerView = inflater.inflate(R.layout.layout_class_children_header, container, false);
         footerView = inflater.inflate(R.layout.layout_class_children_footer, container, false);
-        mLoadingLinearLayout = (LinearLayout) mClassView.findViewById(R.id.ll_loading);
-        mParentLinearLayout = (LinearLayout) mClassView.findViewById(R.id.ll_parent_class);
-        mChildrenLinearLayout = (LinearLayout) mClassView.findViewById(R.id.ll_children_class);
-        mListViewParent = (ListView) mClassView.findViewById(R.id.lv_parent_class);
-        mGridViewChildren = (GridViewWithHeaderAndFooter) mClassView
-                .findViewById(R.id.lv_children_class);
+        mLoadingLinearLayout = mClassView.findViewById(R.id.ll_loading);
+        mParentLinearLayout = mClassView.findViewById(R.id.ll_parent_class);
+        mChildrenLinearLayout = mClassView.findViewById(R.id.ll_children_class);
+        mListViewParent = mClassView.findViewById(R.id.lv_parent_class);
+        mGridViewChildren = mClassView.findViewById(R.id.lv_children_class);
 
-        new Thread(new Runnable() {
+        HttpUtils.request(HttpUtils.createApiCook().getDataClassNew(), new HttpUtils.IResponseListener<CookClassBean>() {
             @Override
-            public void run() {
-                GetJsonUtils.getDataClass(myHandler);
+            public void onSuccess(CookClassBean data) {
+                mLoadingLinearLayout.setVisibility(View.GONE);
+                try {
+                    parentClassBeenList = data.getResult();
+                    for (int i = 0; i < data.getResult().size(); i++) {
+                        childrenClassBeenList = data.getResult().get(i).getList();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                parentClassAdapter = new ParentClassAdapter(mContext, parentClassBeenList);
+                mListViewParent.setAdapter(parentClassAdapter);
+                if (parentClassBeenList.size() != 0 && parentClassBeenList.get(0) != null) {
+                    try {
+                        initChildrenView(0);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }).start();
+
+            @Override
+            public void onFail() {
+                mLoadingLinearLayout.setVisibility(View.VISIBLE);
+                ToastUtils.showShortToast("加载出错了~");
+            }
+        });
 
         mListViewParent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -130,45 +158,6 @@ public class ClassFragment extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private class MyHandler extends Handler {
-        WeakReference<ClassFragment> classFragmentWeakReference;
-
-        MyHandler(ClassFragment classFragment) {
-            classFragmentWeakReference = new WeakReference<>(classFragment);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            Bundle jsonBundle = msg.getData();
-            CookClassBean cookClassBean = (CookClassBean) jsonBundle.getSerializable("stringBody");
-            String classType = jsonBundle.getString("classType");
-            String jsonData = jsonBundle.getString("stringBody");
-            getDataAndUpdateUI(cookClassBean);
-            parentClassAdapter = new ParentClassAdapter(mContext, parentClassBeenList);
-            mListViewParent.setAdapter(parentClassAdapter);
-            if (parentClassBeenList.size() != 0 && parentClassBeenList.get(0) != null) {
-                try {
-                    initChildrenView(0);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-    }
-
-    private void getDataAndUpdateUI(CookClassBean cookClassBean) {
-        try {
-            parentClassBeenList = cookClassBean.getResult();
-            for (int i = 0; i < cookClassBean.getResult().size(); i++) {
-                childrenClassBeenList = cookClassBean.getResult().get(i).getList();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
