@@ -104,19 +104,6 @@ public class CookListActivity extends Activity {
         }).start();
     }
 
-    private void initDB() {
-        try {
-            DBServices db = MyDBServiceUtils.getInstance(this);
-            cookBeenArrayList = MyDBServiceUtils.getAllObject(db);
-            for (int i = 0; i < cookBeenArrayList.size(); i++) {
-                String id = cookBeenArrayList.get(i).getId();
-                this.cookIdList.add(id);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void getDataAndUpdateUIBySearchName(CookListBean.ResultBean dataResultBean) {
         try {
             //cookBeanList.clear();

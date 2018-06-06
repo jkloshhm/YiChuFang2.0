@@ -78,4 +78,16 @@ public interface ApiCook {
     @GET("class")
     Observable<CookClassBean> getDataClassNew();
 
+
+
+    /**
+     * 按id检索接口
+     * 请求示例：http://jisusrecipe.market.alicloudapi.com/recipe/detail?id=5
+     *
+     * @param id 起始条数，默认0
+     * @return CookDetailBean
+     */
+    @Headers("Authorization:APPCODE d8da87a316f745b1b7b413d910a1ac72")
+    @GET("detail")
+    Observable<CookDetailBean> getDataByIdNew(@Query("id") int id);
 }

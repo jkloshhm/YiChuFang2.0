@@ -43,7 +43,7 @@ public class MyDBServiceUtils extends DBServices {
             objectOutputStream.close();
             arrayOutputStream.close();
             SQLiteDatabase database = db.getWritableDatabase();
-            database.execSQL("insert into Test001 (_id,person) values(" + Integer.valueOf(cookBean.getId()) + ",?)", new Object[]{data});
+            database.execSQL("insert into Test001(_id,person) values(" + Integer.valueOf(cookBean.getId()) + ",?)", new Object[]{data});
             //database.insert()
             database.close();
         } catch (Exception e) {
@@ -82,5 +82,22 @@ public class MyDBServiceUtils extends DBServices {
         }
     }
 
+    //查询
+    public static boolean QueryCookIdIsExit(DBServices db, String[] args) {
 
+        /*boolean result = false;
+        Cursor cursor = null;
+        //SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            cursor = db.query("select Test001 where _id=?", args);
+            result = (null != cursor && cursor.moveToFirst());
+        } catch (Exception e) {
+            Log.e("jack_guo", "checkColumnExists2..." + e.getMessage());
+        } finally {
+            if (null != cursor && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }*/
+        return db.query("select Test001 where _id=?", args);
+    }
 }

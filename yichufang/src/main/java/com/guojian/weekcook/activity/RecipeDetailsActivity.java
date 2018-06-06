@@ -126,6 +126,12 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
         super.onDestroy();
     }
 
+    private boolean hasCollected(String id) {
+        cookIdList.clear();
+        db = MyDBServiceUtils.getInstance(this);
+        return MyDBServiceUtils.QueryCookIdIsExit(db, new String[Integer.valueOf(id)]);
+    }
+
     private void initDB() {
         cookIdList.clear();
         db = MyDBServiceUtils.getInstance(this);

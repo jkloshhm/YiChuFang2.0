@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * @author guojian on 11/18/16.
@@ -13,7 +14,6 @@ public class DBServices extends SQLiteOpenHelper {
 
     public final static int version = 2;
     public final static String dbName = "Test001";
-
 
     //表里面的三个内容
     private static final String ID = "_id";
@@ -84,7 +84,7 @@ public class DBServices extends SQLiteOpenHelper {
     }
 
     //读取
-    public Cursor read(String sql, String[] args) {
+    public Cursor query1(String sql, String[] args) {
         SQLiteDatabase db = this.getReadableDatabase();
         db.beginTransaction();
         Cursor cursor = db.rawQuery(sql, args);
@@ -92,4 +92,23 @@ public class DBServices extends SQLiteOpenHelper {
         db.endTransaction();
         return cursor;
     }
+
+    //查询
+    public boolean query(String sql, String[] args) {
+        boolean result = false;
+        Cursor cursor = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            cursor = db.rawQuery("select Test001 where _id=?", args);
+            result = (null != cursor && cursor.moveToFirst());
+        } catch (Exception e) {
+            Log.e("jack_guo", "checkColumnExists2..." + e.getMessage());
+        } finally {
+            if (null != cursor && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
 }

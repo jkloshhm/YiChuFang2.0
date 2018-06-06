@@ -126,7 +126,7 @@ public class GetJsonUtils {
         });
     }
 
-    public static void getDataClass(final Handler handler) {
+    /*public static void getDataClass(final Handler handler) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://jisusrecipe.market.alicloudapi.com/recipe/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -157,5 +157,5 @@ public class GetJsonUtils {
             }
         });
 
-    }
+    }*/
 }
