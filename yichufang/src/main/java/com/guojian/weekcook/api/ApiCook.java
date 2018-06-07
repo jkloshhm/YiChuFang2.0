@@ -90,4 +90,31 @@ public interface ApiCook {
     @Headers("Authorization:APPCODE d8da87a316f745b1b7b413d910a1ac72")
     @GET("detail")
     Observable<CookDetailBean> getDataByIdNew(@Query("id") int id);
+
+
+    /**
+     * 根据菜谱名称查询
+     * 请求示例：http://jisusrecipe.market.alicloudapi.com/recipe/search?keyword=%E7%99%BD%E8%8F%9C&num=5&start=0
+     *
+     * @param keyword 菜谱名称关键字
+     * @param num     获取数据条数
+     * @param start   起始条数，默认0
+     * @return CookListBean
+     */
+    @Headers("Authorization:APPCODE d8da87a316f745b1b7b413d910a1ac72")
+    @GET("search")
+    Observable<CookListBean> getDataByKeywordNew(@Query("keyword") String keyword, @Query("num") int num, @Query("start") int start);
+
+    /**
+     * 按分类检索接口
+     * 请求示例：http://jisusrecipe.market.alicloudapi.com/recipe/byclass?classid=2&num=10&start=0
+     *
+     * @param classid 菜谱分类的id
+     * @param num     获取数据条数
+     * @param start   起始条数，默认0
+     * @return CookListBean
+     */
+    @Headers("Authorization:APPCODE d8da87a316f745b1b7b413d910a1ac72")
+    @GET("byclass")
+    Observable<CookListBean> getDataByClassIdNew(@Query("classid") int classid, @Query("num") int num, @Query("start") int start);
 }

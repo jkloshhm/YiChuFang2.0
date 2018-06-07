@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,11 +21,12 @@ import com.guojian.weekcook.activity.CookListActivity;
 import com.guojian.weekcook.activity.RecipeDetailsActivity;
 import com.guojian.weekcook.activity.SearchActivity;
 import com.guojian.weekcook.AutoPlayingViewPager;
+import com.guojian.weekcook.api.HttpUtils;
+import com.guojian.weekcook.bean.CookDetailBean;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.utils.RandomNum;
+import com.guojian.weekcook.utils.ToastUtils;
 
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,10 +39,10 @@ import java.util.Map;
  */
 public class HomeFragment extends Fragment {
 
-    private  List<CookListBean.ResultBean.ListBean> cookBeanList = null;
-    private  AutoPlayingViewPager mAutoPlayingViewPager;
-    private  Context mContext;
-    private  AutoPlayingViewPager.OnPageItemClickListener
+    private List<CookListBean.ResultBean.ListBean> cookBeanList = null;
+    private AutoPlayingViewPager mAutoPlayingViewPager;
+    private Context mContext;
+    private AutoPlayingViewPager.OnPageItemClickListener
             onPageItemClickListener = new AutoPlayingViewPager.OnPageItemClickListener() {
 
         @Override
@@ -60,7 +58,6 @@ public class HomeFragment extends Fragment {
     };
     private final int num[] = RandomNum.makeCount();
     private List<Integer> numList = null;
-    private MyHandler handlerSearch = new MyHandler(this);
     private int imgId[] = {R.mipmap.hot_material_nangua, R.mipmap.hot_material_muer,
             R.mipmap.hot_material_ou, R.mipmap.hot_material_shanyao,
             R.mipmap.hot_material_baicai, R.mipmap.hot_material_hongshu,
@@ -90,7 +87,7 @@ public class HomeFragment extends Fragment {
         mContext = getActivity();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        LinearLayout mSearchLinearLayout = (LinearLayout) view.findViewById(R.id.ll_search);
+        LinearLayout mSearchLinearLayout =  view.findViewById(R.id.ll_search);
         mSearchLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +100,8 @@ public class HomeFragment extends Fragment {
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         //String dateFormat = "yyyyMMdd";
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH");//设置日期格式
+        //设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHH");
         String date = df.format(new Date());
         Log.i("jkloshhm", date);
         if (preferences.getString("date", null) == null) {
@@ -112,7 +110,6 @@ public class HomeFragment extends Fragment {
         editor.putString("num01", String.valueOf(num[0]));
         editor.putString("num02", String.valueOf(num[1]));
         editor.putString("num03", String.valueOf(num[2]));
-        //Log.i("jkloshhm_String(date)", preferences.getString("date", null));
         if (date.equals(preferences.getString("date", null))) {
             Log.i("jkloshhm______if", date);
             editor.putString("num01", preferences.getString("num01", null));
@@ -134,12 +131,12 @@ public class HomeFragment extends Fragment {
         numList.add(2, Integer.parseInt(preferences.getString("num03", null)));
         Log.i("jkloshhm", numList.toString());
 
-        mAutoPlayingViewPager = (AutoPlayingViewPager) view.findViewById(R.id.auto_play_viewpager);
+        mAutoPlayingViewPager =  view.findViewById(R.id.auto_play_viewpager);
+        cookBeanList = new ArrayList<>();
         setViewPager();
-
-        mGridViewHotMaterial = (GridView) view.findViewById(R.id.gv_hot_material);
+        mGridViewHotMaterial =  view.findViewById(R.id.gv_hot_material);
         setUpViewHotMaterial();
-        mGridViewHotClassFood = (GridView) view.findViewById(R.id.gv_hot_class_food);
+        mGridViewHotClassFood =  view.findViewById(R.id.gv_hot_class_food);
         setUpViewHotClassFood();
         return view;
     }
@@ -198,33 +195,49 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public List<Map<String, Object>> getHotMaterialData() {
-        //cion和iconName的长度是相同的，这里任选其一都可以
+    public void getHotMaterialData() {
         for (int i = 0; i < imgId.length; i++) {
-            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>(2);
             map.put("name", imgName[i]);
             map.put("image", imgId[i]);
             mHotMaterialList.add(map);
         }
-        return mHotMaterialList;
     }
 
-    public List<Map<String, Object>> getHotClassFoodData() {
-        //cion和iconName的长度是相同的，这里任选其一都可以
+    public void getHotClassFoodData() {
         for (int i = 0; i < imgIdFood.length; i++) {
-            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>(3);
             map.put("name", imgNameFood[i]);
             map.put("image", imgIdFood[i]);
             map.put("classId", classId[i]);
             mHotClassFoodList.add(map);
         }
-        return mHotClassFoodList;
     }
 
     private void setViewPager() {
-        //使用异步加载模拟网络请求
-        MyAsyncTask myAsyncTask = new MyAsyncTask();
-        myAsyncTask.execute();
+        try {
+            for (int i = 0; i < 3; i++) {
+                HttpUtils.request(HttpUtils.createApiCook().getDataByIdNew(numList.get(i)), new HttpUtils.IResponseListener<CookDetailBean>() {
+                    @Override
+                    public void onSuccess(CookDetailBean data) {
+                        ToastUtils.showShortToast("banner加载成功~" + numList.size());
+                        cookBeanList.add(data.getResult());
+                        if (null != cookBeanList && cookBeanList.size() == 3) {
+                            mAutoPlayingViewPager.initialize(cookBeanList).build();
+                            mAutoPlayingViewPager.setOnPageItemClickListener(onPageItemClickListener);
+                            mAutoPlayingViewPager.startPlaying();
+                        }
+                    }
+
+                    @Override
+                    public void onFail() {
+                        ToastUtils.showShortToast("banner加载失败~" + numList.size());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -240,67 +253,6 @@ public class HomeFragment extends Fragment {
     public void onPause() {
         mAutoPlayingViewPager.stopPlaying();
         super.onPause();
-    }
-
-    private class MyHandler extends Handler {
-        WeakReference<HomeFragment> homeFragmentWeakReference;
-
-        MyHandler(HomeFragment homeFragment) {
-            homeFragmentWeakReference = new WeakReference<>(homeFragment);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle jsonBundle = msg.getData();
-            //String classType = jsonBundle.getString("classType");
-            //String jsonErrorMessage = jsonBundle.getString("errorMessage");
-            CookListBean.ResultBean.ListBean jsonData = (CookListBean.ResultBean.ListBean) jsonBundle.getSerializable("stringBody");
-            String tag = jsonBundle.getString("tag");
-            //Log.i(TAG, "--------->>jsonData====" + jsonData);
-            //Log.i(TAG, "--------->>jsonErrorMessage====" + jsonErrorMessage);
-            if (jsonData != null) {
-                //getDataAndUpdateUI(jsonData, tag);
-                if (tag != null) {
-                    cookBeanList.add(jsonData);
-                }
-                if (cookBeanList.size() == 3) {
-                    //mAutoPlayingViewPager.notifyAll();
-                    mAutoPlayingViewPager.initialize(cookBeanList).build();
-                    mAutoPlayingViewPager.setOnPageItemClickListener(onPageItemClickListener);
-                    mAutoPlayingViewPager.startPlaying();
-                }
-
-            }
-        }
-    }
-
-    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            //模拟网络请求获取数据
-            cookBeanList = new ArrayList<>();
-            try {
-                for (int i = 0; i < 3; i++) {
-                    GetJsonUtils.getDataById(handlerSearch, numList.get(i),
-                            String.valueOf(i + 1));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            //数据加载后更新UI
-            /*if (cookBeanList != null && cookBeanList.size() ==3) {
-                mAutoPlayingViewPager.initialize(cookBeanList).build();
-                mAutoPlayingViewPager.setOnPageItemClickListener(onPageItemClickListener);
-                mAutoPlayingViewPager.startPlaying();
-            }*/
-        }
     }
 
 }

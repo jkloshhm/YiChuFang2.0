@@ -3,8 +3,6 @@ package com.guojian.weekcook.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.guojian.weekcook.api.GetJsonUtils;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.CookListAdapter;
+import com.guojian.weekcook.api.HttpUtils;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.db.DBServices;
-import com.guojian.weekcook.db.MyDBServiceUtils;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
+import com.guojian.weekcook.utils.ToastUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,15 +27,12 @@ import java.util.List;
 public class CookListActivity extends Activity {
     private static List<CookListBean.ResultBean.ListBean> cookBeanList = new ArrayList<>();
 
-    private CookListBean.ResultBean.ListBean cookBean01, cookBeanSql;
+    private CookListBean.ResultBean.ListBean cookBean01;
     private String TAG = "jkl_CookListActivity";
     private TextView mNameTextView;
     private ListView mLisview;
     private CookListAdapter mCookListAdapter;
     private LinearLayout mLoadingLinearLayout, mNoMassageLinearLayout;
-    private ArrayList<CookListBean.ResultBean.ListBean> cookBeenArrayList;
-    private ArrayList<String> cookIdList = new ArrayList<>();
-    private MyHandler mMyHandler = new MyHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,69 +71,74 @@ public class CookListActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        Log.i(TAG, "CookListActivity ____________onResume()");
-        super.onResume();
-        //initDB();
-    }
-
     private void initJsonData() {
         Intent intent = this.getIntent();
         final String CookType = intent.getStringExtra("CookType");
         final String classId = intent.getStringExtra("classId");
         final String name = intent.getStringExtra("name");
         mNameTextView.setText(name);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (CookType.equals("getDataByClassId")) {
-                    GetJsonUtils.getDataByClassId(mMyHandler, classId);
-                    Log.i(TAG, "classId=======" + classId);
-                } else if (CookType.equals("getDataBySearchName")) {
-                    GetJsonUtils.getDataBySearchName(mMyHandler, name);
+        if (CookType.equals("getDataByClassId")) {
+            Log.i(TAG, "classId=======" + classId);
+            HttpUtils.request(
+                    HttpUtils.createApiCook().getDataByClassIdNew(Integer.parseInt(classId), 20, 0),
+                    new HttpUtils.IResponseListener<CookListBean>() {
+                        @Override
+                        public void onSuccess(CookListBean data) {
+                            try {
+                                if (data == null) {
+                                    mLoadingLinearLayout.setVisibility(View.GONE);
+                                    mLisview.setVisibility(View.GONE);
+                                    mNoMassageLinearLayout.setVisibility(View.VISIBLE);
+                                } else {
+                                    //传过来的就是cookBeanList
+                                    cookBeanList = data.getResult().getList();
+                                    mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
+                                    mLisview.setAdapter(mCookListAdapter);
+                                    mLoadingLinearLayout.setVisibility(View.GONE);
+                                    mLisview.setVisibility(View.VISIBLE);
+                                    ToastUtils.showShortToast("classId列表数据加载成功~ 列表数据size：" + cookBeanList.size());
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail() {
+                            ToastUtils.showShortToast("classId列表数据加载加载失败~" );
+                        }
+                    });
+        } else if (CookType.equals("getDataBySearchName")) {
+            HttpUtils.request(
+                    HttpUtils.createApiCook().getDataByKeywordNew(name, 20, 0),
+                    new HttpUtils.IResponseListener<CookListBean>() {
+                @Override
+                public void onSuccess(CookListBean data) {
+                    try {
+                        if (data == null) {
+                            mLoadingLinearLayout.setVisibility(View.GONE);
+                            mLisview.setVisibility(View.GONE);
+                            mNoMassageLinearLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            //传过来的就是cookBeanList
+                            cookBeanList = data.getResult().getList();
+                            mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
+                            mLisview.setAdapter(mCookListAdapter);
+                            mLoadingLinearLayout.setVisibility(View.GONE);
+                            mLisview.setVisibility(View.VISIBLE);
+                            ToastUtils.showShortToast("name列表数据加载成功~ 列表数据size：" + cookBeanList.size());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
-    }
 
-    private void getDataAndUpdateUIBySearchName(CookListBean.ResultBean dataResultBean) {
-        try {
-            //cookBeanList.clear();
-            if (dataResultBean == null) {
-                mLoadingLinearLayout.setVisibility(View.GONE);
-                mLisview.setVisibility(View.GONE);
-                mNoMassageLinearLayout.setVisibility(View.VISIBLE);
-            } else {
-                //传过来的就是cookBeanList
-                cookBeanList = dataResultBean.getList();
-                mCookListAdapter = new CookListAdapter(this, cookBeanList);
-                mLisview.setAdapter(mCookListAdapter);
-                mLoadingLinearLayout.setVisibility(View.GONE);
-                mLisview.setVisibility(View.VISIBLE);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+                @Override
+                public void onFail() {
+                    ToastUtils.showShortToast("name列表数据加载加载失败~" );
+                }
+            });
         }
     }
 
-    private class MyHandler extends Handler {
-        WeakReference<CookListActivity> cookListActivityWeakReference;
-
-        MyHandler(CookListActivity cookListActivity) {
-            cookListActivityWeakReference = new WeakReference<>(cookListActivity);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle jsonBundle = msg.getData();
-            String classType = jsonBundle.getString("classType");
-            String jsonErrorMessage = jsonBundle.getString("errorMessage");
-
-            //Log.i(TAG, "--------->>jsonData====" + jsonData);
-            Log.i(TAG, "--------->>jsonErrorMessage====" + jsonErrorMessage);
-            CookListBean.ResultBean stringBody = (CookListBean.ResultBean) jsonBundle.getSerializable("stringBody");
-            getDataAndUpdateUIBySearchName(stringBody);
-        }
-    }
 }
