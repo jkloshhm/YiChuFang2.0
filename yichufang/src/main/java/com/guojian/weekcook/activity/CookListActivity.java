@@ -40,11 +40,11 @@ public class CookListActivity extends Activity {
         Log.i(TAG, "CookListActivity ____________onCreate()");
         setContentView(R.layout.activity_cook_list);
         StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.red_theme, null), false);
-        mNameTextView = (TextView) findViewById(R.id.tv_cook_name);
-        mLisview = (ListView) findViewById(R.id.lv_cook_list);
-        mLoadingLinearLayout = (LinearLayout) findViewById(R.id.ll_loading_list);
-        mNoMassageLinearLayout = (LinearLayout) findViewById(R.id.ll_no_data_massage);
-        LinearLayout mBackLinearLayout = (LinearLayout) findViewById(R.id.ll_back_class_home);
+        mNameTextView = findViewById(R.id.tv_cook_name);
+        mLisview = findViewById(R.id.lv_cook_list);
+        mLoadingLinearLayout = findViewById(R.id.ll_loading_list);
+        mNoMassageLinearLayout = findViewById(R.id.ll_no_data_massage);
+        LinearLayout mBackLinearLayout = findViewById(R.id.ll_back_class_home);
         mBackLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,39 +105,39 @@ public class CookListActivity extends Activity {
 
                         @Override
                         public void onFail() {
-                            ToastUtils.showShortToast("classId列表数据加载加载失败~" );
+                            ToastUtils.showShortToast("classId列表数据加载加载失败~");
                         }
                     });
         } else if (CookType.equals("getDataBySearchName")) {
             HttpUtils.request(
                     HttpUtils.createApiCook().getDataByKeywordNew(name, 20, 0),
                     new HttpUtils.IResponseListener<CookListBean>() {
-                @Override
-                public void onSuccess(CookListBean data) {
-                    try {
-                        if (data == null) {
-                            mLoadingLinearLayout.setVisibility(View.GONE);
-                            mLisview.setVisibility(View.GONE);
-                            mNoMassageLinearLayout.setVisibility(View.VISIBLE);
-                        } else {
-                            //传过来的就是cookBeanList
-                            cookBeanList = data.getResult().getList();
-                            mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
-                            mLisview.setAdapter(mCookListAdapter);
-                            mLoadingLinearLayout.setVisibility(View.GONE);
-                            mLisview.setVisibility(View.VISIBLE);
-                            ToastUtils.showShortToast("name列表数据加载成功~ 列表数据size：" + cookBeanList.size());
+                        @Override
+                        public void onSuccess(CookListBean data) {
+                            try {
+                                if (data == null) {
+                                    mLoadingLinearLayout.setVisibility(View.GONE);
+                                    mLisview.setVisibility(View.GONE);
+                                    mNoMassageLinearLayout.setVisibility(View.VISIBLE);
+                                } else {
+                                    //传过来的就是cookBeanList
+                                    cookBeanList = data.getResult().getList();
+                                    mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
+                                    mLisview.setAdapter(mCookListAdapter);
+                                    mLoadingLinearLayout.setVisibility(View.GONE);
+                                    mLisview.setVisibility(View.VISIBLE);
+                                    ToastUtils.showShortToast("name列表数据加载成功~ 列表数据size：" + cookBeanList.size());
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onFail() {
-                    ToastUtils.showShortToast("name列表数据加载加载失败~" );
-                }
-            });
+                        @Override
+                        public void onFail() {
+                            ToastUtils.showShortToast("name列表数据加载加载失败~");
+                        }
+                    });
         }
     }
 

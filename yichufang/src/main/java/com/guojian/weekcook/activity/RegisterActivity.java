@@ -521,9 +521,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         SMSSDK.unregisterAllEventHandler();
     }
 
-    ;
-
-
     private void hintKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive() && getCurrentFocus() != null) {

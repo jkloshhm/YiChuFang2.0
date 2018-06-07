@@ -33,7 +33,8 @@ public class HeadImageShowerActivity extends AppCompatActivity {
             });
         }
         if (GetBitmapFromSdCardUtil.hasSdcard()) {
-            String path = Environment.getExternalStorageDirectory() + "/YiChuFang/myHeadImg/";//sd路径
+            //sd路径
+            String path = Environment.getExternalStorageDirectory() + "/YiChuFang/myHeadImg/";
             Bitmap bt = GetBitmapFromSdCardUtil.getBitmap(path + "head.jpg");
             if (bt != null) {
                 @SuppressWarnings("deprecation")

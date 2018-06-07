@@ -59,8 +59,6 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     private int mDetailsTitleHeight;
     private List<CookListBean.ResultBean.ListBean.ProcessBean> processBeenList;
     private Context mContext;
-    private String realIp;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +206,7 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
                          String imgPath) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         if (imgPath == null || imgPath.equals("")) {
-            intent.setType("text/plain"); // 纯文本
+            intent.setType("text/plain");
         } else {
             File f = new File(imgPath);
             if (f != null && f.exists() && f.isFile()) {
@@ -343,7 +341,6 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
 
     private void initViews() {
         mTitleName = (TextView) findViewById(R.id.tv_details_cook_title_name);
-        //ImageView mShareImg = (ImageView) findViewById(R.id.iv_share_the_cook_data);
         mScrollView = (MyScrollView) findViewById(R.id.scrollView_details);
         mDetailsTitleLinearLayout = (LinearLayout) findViewById(R.id.ll_details_title);
         mShareLinearLayout = (LinearLayout) findViewById(R.id.ll_share_the_cook_data);

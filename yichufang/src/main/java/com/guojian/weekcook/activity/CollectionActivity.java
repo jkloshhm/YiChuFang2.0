@@ -41,8 +41,8 @@ public class CollectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
         StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.red_theme, null), false);
-        lv = (ListView) findViewById(R.id.lv_my_collection_list);
-        final LinearLayout mBackLinearLayout = (LinearLayout) findViewById(R.id.ll_back_to_my_home);
+        lv = findViewById(R.id.lv_my_collection_list);
+        final LinearLayout mBackLinearLayout =  findViewById(R.id.ll_back_to_my_home);
         if (mBackLinearLayout != null) {
             mBackLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,7 +79,9 @@ public class CollectionActivity extends AppCompatActivity {
         });
     }
 
-    //是否取消收藏
+    /**
+     * 是否取消收藏
+     */
     public void setCancelCollection() {
         //提示对话框
         AlertDialog builder = new AlertDialog.Builder(this).create();

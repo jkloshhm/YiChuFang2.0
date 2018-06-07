@@ -25,15 +25,15 @@ import com.guojian.weekcook.statusbar.StatusBarCompat;
  */
 public class SearchActivity extends Activity {
     private EditText editText;
-    private String hotSreachName[] = {"土豆", "红烧肉", "韭菜", "鱼", "汤", "排骨", "早餐", "批萨"};
+    private String[] hotSearchName = {"土豆", "红烧肉", "韭菜", "鱼", "汤", "排骨", "早餐", "批萨"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(),R.color.white,null), true);
+        StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.white, null), true);
         LinearLayout mBack = (LinearLayout) findViewById(R.id.ll_search_back);
-        if (mBack != null){
+        if (mBack != null) {
             mBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,18 +63,15 @@ public class SearchActivity extends Activity {
 
         GridView hotSearchGridView = (GridView) findViewById(R.id.gv_hot_search);
         ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this, R.layout.hot_search_gv_adapter_item, hotSreachName);
+                new ArrayAdapter<String>(this, R.layout.hot_search_gv_adapter_item, hotSearchName);
         hotSearchGridView.setAdapter(arrayAdapter);
         hotSearchGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String name = hotSreachName[position];
+                String name = hotSearchName[position];
                 searchCookName(name);
             }
         });
-
-        ListView historySearchListView = (ListView) findViewById(R.id.lv_history_search);
-
     }
 
     private void searchCookName(String name) {

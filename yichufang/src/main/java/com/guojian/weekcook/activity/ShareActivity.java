@@ -3,11 +3,10 @@ package com.guojian.weekcook.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,17 +45,8 @@ public class ShareActivity extends AppCompatActivity {
         setContentView(R.layout.activity_share);
         StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.black_00000000, null), false);
         mContext = this;
-        //mFrameLayout = (FrameLayout) findViewById(R.id.share_activity) ;
-
 
         String fileName = getIntent().getExtras().getString("fileName");
-
-        /*if (file){
-            //showSharePic();
-        } else {
-            ShareAppPopupWindow();
-        }*/
-
         ShareAppPopupWindow(fileName);
 
     }

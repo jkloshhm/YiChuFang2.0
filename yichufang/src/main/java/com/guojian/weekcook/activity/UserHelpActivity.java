@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.guojian.weekcook.R;
 
+/**
+ * @author jkloshhm 2018-05-23 用户帮助页面
+ */
 public class UserHelpActivity extends AppCompatActivity {
 
     @Override
@@ -24,14 +27,14 @@ public class UserHelpActivity extends AppCompatActivity {
         });
     }
 
-    /****************
+    /****************  直接拉起QQ，添加QQ群！
      *
-     * 发起添加群流程。群号：&lt;易厨房&gt;问题反馈群(771632164) 的 key 为： zGr8I6wE3SwVPd-r2vN8rarOiX3SzYuC
+     * 发起添加群流程。群号：易厨房问题反馈群(771632164) 的 key 为： zGr8I6wE3SwVPd-r2vN8rarOiX3SzYuC
      * 调用 joinQQGroup(zGr8I6wE3SwVPd-r2vN8rarOiX3SzYuC) 即可发起手Q客户端申请加群 &lt;易厨房&gt;问题反馈群(771632164)
      *
      * @param key 由官网生成的key
      * @return 返回true表示呼起手Q成功，返回fals表示呼起失败
-     ******************/
+     */
     public boolean joinQQGroup(String key) {
         Intent intent = new Intent();
         intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + key));
@@ -42,7 +45,7 @@ public class UserHelpActivity extends AppCompatActivity {
             return true;
         } catch (Exception e) {
             // 未安装手Q或安装的版本不支持
-            Toast.makeText(this,"未安装手Q或安装的版本不支持~",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "未安装手Q或安装的版本不支持~", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
