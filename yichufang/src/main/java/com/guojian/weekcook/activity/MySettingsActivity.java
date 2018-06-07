@@ -10,12 +10,10 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
@@ -23,6 +21,7 @@ import com.guojian.weekcook.utils.AppConfig;
 import com.guojian.weekcook.utils.DataCleanManager;
 import com.guojian.weekcook.utils.FileUtil;
 import com.guojian.weekcook.utils.MethodsCompat;
+import com.guojian.weekcook.utils.ToastUtils;
 
 import java.io.File;
 import java.util.Properties;
@@ -33,7 +32,7 @@ import java.util.Properties;
 public class MySettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = "MySettingsActivity";
-    //------****** 缓存相关****----------
+    /****** 缓存相关****/
     private final static int CLEAN_SUC = 1001;
     private final static int CLEAN_FAIL = 1002;
     private TextView mMyCacheSize;
@@ -42,12 +41,10 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case CLEAN_FAIL:
-                    Toast.makeText(MySettingsActivity.this, "清除失败", Toast.LENGTH_SHORT).show();
-                    //ToastUtils.show(SxApplication.getInstance(),"清除失败");
+                    ToastUtils.showShortToast("清除缓存失败");
                     break;
                 case CLEAN_SUC:
-                    Toast.makeText(MySettingsActivity.this, "清除成功", Toast.LENGTH_SHORT).show();
-                    //ToastUtils.show(SxApplication.getInstance(),"清除成功");
+                    ToastUtils.showShortToast("清除缓存成功");
                     break;
                 default:
                     break;
@@ -66,18 +63,18 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_settings);
         StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.red_theme, null), false);
-        TextView mBackToFirstHome = (TextView) findViewById(R.id.tv_back_to_first_home);
-        LinearLayout mBack = (LinearLayout) findViewById(R.id.ll_back_me_home);
-        LinearLayout mHelpCenter = (LinearLayout) findViewById(R.id.ll_help_center);
-        LinearLayout mGiveScore = (LinearLayout) findViewById(R.id.ll__settings_give_app_score);
-        LinearLayout mCleanCache = (LinearLayout) findViewById(R.id.ll_settings_clean_cache);
-        mMyCacheSize = (TextView) findViewById(R.id.tv_setting_my_cache_size);
-        if (mBack != null) mBack.setOnClickListener(this);
-        if (mBackToFirstHome != null) mBackToFirstHome.setOnClickListener(this);
-        if (mHelpCenter != null) mHelpCenter.setOnClickListener(this);
-        if (mGiveScore != null) mGiveScore.setOnClickListener(this);
-        if (mCleanCache != null) mCleanCache.setOnClickListener(this);
-
+        TextView mBackToFirstHome = findViewById(R.id.tv_back_to_first_home);
+        LinearLayout mBack = findViewById(R.id.ll_back_me_home);
+        LinearLayout mHelpCenter = findViewById(R.id.ll_help_center);
+        LinearLayout mGiveScore = findViewById(R.id.ll__settings_give_app_score);
+        LinearLayout mCleanCache = findViewById(R.id.ll_settings_clean_cache);
+        mMyCacheSize = findViewById(R.id.tv_setting_my_cache_size);
+        //点击事件
+        mBack.setOnClickListener(this);
+        mBackToFirstHome.setOnClickListener(this);
+        mHelpCenter.setOnClickListener(this);
+        mGiveScore.setOnClickListener(this);
+        mCleanCache.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +83,6 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
         Log.i(TAG, "onResume");
         calculateCacheSize();
     }
-
 
     @Override
     public void onClick(View v) {
@@ -111,9 +107,9 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
                     intent5.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent5);
                 } catch (Exception e) {
-                    Toast.makeText(MySettingsActivity.this, "错误~", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShortToast("打开应用商店出错~");
                 }
-                break;
+             break;
             case R.id.ll_settings_clean_cache:
                 onClickCleanCache();
                 break;
@@ -178,6 +174,7 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
         //DataCleanManager.cleanApplicationData(this,Environment.getExternalStorageDirectory() + "/Cooking/myHeadImg/");
         // 清除数据缓存
         DataCleanManager.cleanFiles(this);
+        //清除数据库
         //DataCleanManager.cleanDatabases(this);
         DataCleanManager.cleanInternalCache(this);
         DataCleanManager.cleanExternalCache(this);
@@ -185,8 +182,9 @@ public class MySettingsActivity extends AppCompatActivity implements View.OnClic
         Properties props = getProperties();
         for (Object key : props.keySet()) {
             String _key = key.toString();
-            if (_key.startsWith("temp"))
+            if (_key.startsWith("temp")) {
                 removeProperty(_key);
+            }
         }
     }
 

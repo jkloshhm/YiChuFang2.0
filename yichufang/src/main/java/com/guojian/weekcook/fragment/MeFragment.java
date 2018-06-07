@@ -9,15 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
@@ -28,13 +24,6 @@ import com.guojian.weekcook.activity.MyInformationActivity;
 import com.guojian.weekcook.activity.MySettingsActivity;
 import com.guojian.weekcook.activity.ShareActivity;
 import com.guojian.weekcook.utils.GetBitmapFromSdCardUtil;
-
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
-import cn.sharesdk.wechat.moments.WechatMoments;
 
 /**
  * @author Created by jkloshhm on 2017/6/24. 我的页面
@@ -54,8 +43,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
         mContext = getContext();
         View view = inflater.inflate(R.layout.fragment_me, container, false);
 
-        mMyTitleImg = (ImageView) view.findViewById(R.id.iv_my_title_img);
-        mMyname = (TextView) view.findViewById(R.id.tv_me_name);
+        mMyTitleImg =  view.findViewById(R.id.iv_my_title_img);
+        mMyname =  view.findViewById(R.id.tv_me_name);
         LinearLayout mMyCollectionLinearLayout = (LinearLayout) view
                 .findViewById(R.id.ll_my_collection_me);
         LinearLayout mMyInformationLinearLayout = (LinearLayout) view
