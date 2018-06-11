@@ -80,7 +80,7 @@ public class CookListActivity extends Activity {
         if (CookType.equals("getDataByClassId")) {
             Log.i(TAG, "classId=======" + classId);
             HttpUtils.request(
-                    HttpUtils.createApiCook().getDataByClassIdNew(Integer.parseInt(classId), 20, 0),
+                    HttpUtils.createApiCook().getDataByClassId(Integer.parseInt(classId), 20, 0),
                     new HttpUtils.IResponseListener<CookListBean>() {
                         @Override
                         public void onSuccess(CookListBean data) {
@@ -110,7 +110,7 @@ public class CookListActivity extends Activity {
                     });
         } else if (CookType.equals("getDataBySearchName")) {
             HttpUtils.request(
-                    HttpUtils.createApiCook().getDataByKeywordNew(name, 20, 0),
+                    HttpUtils.createApiCook().getDataByKeyword(name, 20, 0),
                     new HttpUtils.IResponseListener<CookListBean>() {
                         @Override
                         public void onSuccess(CookListBean data) {

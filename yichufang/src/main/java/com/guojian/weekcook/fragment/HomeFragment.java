@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment {
     private void setViewPager() {
         try {
             for (int i = 0; i < 3; i++) {
-                HttpUtils.request(HttpUtils.createApiCook().getDataByIdNew(numList.get(i)), new HttpUtils.IResponseListener<CookDetailBean>() {
+                HttpUtils.request(HttpUtils.createApiCook().getDataById(numList.get(i)), new HttpUtils.IResponseListener<CookDetailBean>() {
                     @Override
                     public void onSuccess(CookDetailBean data) {
                         ToastUtils.showShortToast("banner加载成功~" + numList.size());

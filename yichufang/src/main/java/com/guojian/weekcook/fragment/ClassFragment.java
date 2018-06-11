@@ -17,7 +17,6 @@ import com.guojian.weekcook.R;
 import com.guojian.weekcook.activity.CookListActivity;
 import com.guojian.weekcook.adapter.ChildrenClassAdapter;
 import com.guojian.weekcook.adapter.ParentClassAdapter;
-import com.guojian.weekcook.api.ApiCook;
 import com.guojian.weekcook.api.HttpUtils;
 import com.guojian.weekcook.bean.CookClassBean;
 import com.guojian.weekcook.utils.GridViewWithHeaderAndFooter;
@@ -25,13 +24,6 @@ import com.guojian.weekcook.utils.ToastUtils;
 
 
 import java.util.List;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -80,7 +72,7 @@ public class ClassFragment extends Fragment {
         mListViewParent = mClassView.findViewById(R.id.lv_parent_class);
         mGridViewChildren = mClassView.findViewById(R.id.lv_children_class);
 
-        HttpUtils.request(HttpUtils.createApiCook().getDataClassNew(), new HttpUtils.IResponseListener<CookClassBean>() {
+        HttpUtils.request(HttpUtils.createApiCook().getDataClass(), new HttpUtils.IResponseListener<CookClassBean>() {
             @Override
             public void onSuccess(CookClassBean data) {
                 mLoadingLinearLayout.setVisibility(View.GONE);
