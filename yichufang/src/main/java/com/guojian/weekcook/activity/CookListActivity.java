@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.CookListAdapter;
+import com.guojian.weekcook.adapter.CookRecyclerViewListAdapter;
 import com.guojian.weekcook.api.HttpUtils;
 import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.statusbar.StatusBarCompat;
@@ -30,8 +31,10 @@ public class CookListActivity extends Activity {
     private CookListBean.ResultBean.ListBean cookBean01;
     private String TAG = "jkl_CookListActivity";
     private TextView mNameTextView;
-    private ListView mLisview;
+    //private ListView mLisview;
+    private RecyclerView mRecyclerView;
     private CookListAdapter mCookListAdapter;
+    private CookRecyclerViewListAdapter mRecyclerViewListAdapter;
     private LinearLayout mLoadingLinearLayout, mNoMassageLinearLayout;
 
     @Override
@@ -41,7 +44,10 @@ public class CookListActivity extends Activity {
         setContentView(R.layout.activity_cook_list);
         StatusBarCompat.setStatusBarColor(this, ResourcesCompat.getColor(getResources(), R.color.red_theme, null), false);
         mNameTextView = findViewById(R.id.tv_cook_name);
-        mLisview = findViewById(R.id.lv_cook_list);
+        //mLisview = findViewById(R.id.lv_cook_list);
+        mRecyclerView = findViewById(R.id.lv_cook_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
         mLoadingLinearLayout = findViewById(R.id.ll_loading_list);
         mNoMassageLinearLayout = findViewById(R.id.ll_no_data_massage);
         LinearLayout mBackLinearLayout = findViewById(R.id.ll_back_class_home);
@@ -53,8 +59,7 @@ public class CookListActivity extends Activity {
         });
         initJsonData();
 
-
-        mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cookBean01 = cookBeanList.get(position);
@@ -68,7 +73,7 @@ public class CookListActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
     }
 
     private void initJsonData() {
@@ -87,15 +92,16 @@ public class CookListActivity extends Activity {
                             try {
                                 if (data == null) {
                                     mLoadingLinearLayout.setVisibility(View.GONE);
-                                    mLisview.setVisibility(View.GONE);
+                                    mRecyclerView.setVisibility(View.GONE);
                                     mNoMassageLinearLayout.setVisibility(View.VISIBLE);
                                 } else {
                                     //传过来的就是cookBeanList
                                     cookBeanList = data.getResult().getList();
-                                    mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
-                                    mLisview.setAdapter(mCookListAdapter);
+                                    //mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
+                                    mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
+                                    mRecyclerView.setAdapter(mRecyclerViewListAdapter);
                                     mLoadingLinearLayout.setVisibility(View.GONE);
-                                    mLisview.setVisibility(View.VISIBLE);
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                     ToastUtils.showShortToast("classId列表数据加载成功~ 列表数据size：" + cookBeanList.size());
                                 }
                             } catch (Exception e) {
@@ -117,15 +123,17 @@ public class CookListActivity extends Activity {
                             try {
                                 if (data == null) {
                                     mLoadingLinearLayout.setVisibility(View.GONE);
-                                    mLisview.setVisibility(View.GONE);
+                                    mRecyclerView.setVisibility(View.GONE);
                                     mNoMassageLinearLayout.setVisibility(View.VISIBLE);
                                 } else {
                                     //传过来的就是cookBeanList
                                     cookBeanList = data.getResult().getList();
-                                    mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
-                                    mLisview.setAdapter(mCookListAdapter);
+                                    //mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
+                                    //mLisview.setAdapter(mCookListAdapter);
+                                    mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
+                                    mRecyclerView.setAdapter(mRecyclerViewListAdapter);
                                     mLoadingLinearLayout.setVisibility(View.GONE);
-                                    mLisview.setVisibility(View.VISIBLE);
+                                    mRecyclerView.setVisibility(View.VISIBLE);
                                     ToastUtils.showShortToast("name列表数据加载成功~ 列表数据size：" + cookBeanList.size());
                                 }
                             } catch (Exception e) {
