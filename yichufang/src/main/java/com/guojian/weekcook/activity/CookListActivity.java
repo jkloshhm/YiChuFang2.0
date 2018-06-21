@@ -58,22 +58,6 @@ public class CookListActivity extends Activity {
             }
         });
         initJsonData();
-
-        /*mLisview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                cookBean01 = cookBeanList.get(position);
-                try {
-                    Intent intent = new Intent(CookListActivity.this, RecipeDetailsActivity.class);
-                    Bundle b = new Bundle();
-                    b.putSerializable("cookBean01", cookBean01);
-                    intent.putExtras(b);
-                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
     }
 
     private void initJsonData() {
@@ -97,7 +81,6 @@ public class CookListActivity extends Activity {
                                 } else {
                                     //传过来的就是cookBeanList
                                     cookBeanList = data.getResult().getList();
-                                    //mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
                                     mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
                                     mRecyclerView.setAdapter(mRecyclerViewListAdapter);
                                     mLoadingLinearLayout.setVisibility(View.GONE);
@@ -128,8 +111,7 @@ public class CookListActivity extends Activity {
                                 } else {
                                     //传过来的就是cookBeanList
                                     cookBeanList = data.getResult().getList();
-                                    //mCookListAdapter = new CookListAdapter(CookListActivity.this, cookBeanList);
-                                    //mLisview.setAdapter(mCookListAdapter);
+
                                     mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
                                     mRecyclerView.setAdapter(mRecyclerViewListAdapter);
                                     mLoadingLinearLayout.setVisibility(View.GONE);
