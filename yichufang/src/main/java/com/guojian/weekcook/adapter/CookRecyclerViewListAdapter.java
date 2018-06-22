@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,7 +33,10 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(View.inflate(mContext, R.layout.cook_recycle_view_list_item, null));
+        //return new MyViewHolder(View.inflate(mContext, R.layout.cook_recycle_view_list_item, null));
+        View view = LayoutInflater.from(mContext).inflate(R.layout.cook_recycle_view_list_item,parent,false);
+        return new MyViewHolder(view);
+        //return new MyViewHolder(View.inflate(R.layout.cook_recycle_view_list_item, parent,false));
     }
 
     @Override
