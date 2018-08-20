@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.guojian.weekcook.MyScrollView;
+import com.guojian.weekcook.views.MyScrollView;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.adapter.MaterialAdapter;
 import com.guojian.weekcook.adapter.ProcessAdapter;

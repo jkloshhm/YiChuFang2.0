@@ -103,7 +103,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/gray" />
 
-        <com.guojian.weekcook.MyGridView
+        <com.guojian.weekcook.views.MyGridView
             android:id="@+id/gv_hot_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
             android:layout_marginTop="10dp"
             android:background="@color/gray" />
 
-        <com.guojian.weekcook.MyListView
+        <com.guojian.weekcook.views.MyListView
             android:id="@+id/lv_history_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

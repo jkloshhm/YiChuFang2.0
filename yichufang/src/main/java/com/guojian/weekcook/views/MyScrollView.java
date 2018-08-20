@@ -1,4 +1,4 @@
-package com.guojian.weekcook;
+package com.guojian.weekcook.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

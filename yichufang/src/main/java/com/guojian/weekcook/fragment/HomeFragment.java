@@ -20,7 +20,7 @@ import com.guojian.weekcook.R;
 import com.guojian.weekcook.activity.CookListActivity;
 import com.guojian.weekcook.activity.RecipeDetailsActivity;
 import com.guojian.weekcook.activity.SearchActivity;
-import com.guojian.weekcook.AutoPlayingViewPager;
+import com.guojian.weekcook.views.AutoPlayingViewPager;
 import com.guojian.weekcook.api.HttpUtils;
 import com.guojian.weekcook.bean.CookDetailBean;
 import com.guojian.weekcook.bean.CookListBean;

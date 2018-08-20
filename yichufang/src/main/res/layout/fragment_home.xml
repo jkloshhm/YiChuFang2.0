@@ -61,7 +61,7 @@
                     android:contentDescription="@null"
                     android:background="@mipmap/loading1"
                     android:scaleType="centerCrop"/>
-                <com.guojian.weekcook.AutoPlayingViewPager
+                <com.guojian.weekcook.views.AutoPlayingViewPager
                     android:id="@+id/auto_play_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="160dp" />
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <com.guojian.weekcook.MyGridView
+                <com.guojian.weekcook.views.MyGridView
                     android:id="@+id/gv_hot_material"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                 android:layout_height="match_parent"
                 android:paddingTop="20dp">
 
-                <com.guojian.weekcook.MyGridView
+                <com.guojian.weekcook.views.MyGridView
                     android:id="@+id/gv_hot_class_food"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -6,7 +6,7 @@
     android:id="@+id/rl_layout"
     tools:mContext="com.example.guojian.weekcook.com.guojian.weekcook.activity.ProcessLargeImgActivity">
 
-    <com.guojian.weekcook.ProcessViewPager
+    <com.guojian.weekcook.views.ProcessViewPager
         android:id="@+id/pv_process_viewpager_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

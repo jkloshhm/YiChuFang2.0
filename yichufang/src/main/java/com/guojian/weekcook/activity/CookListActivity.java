@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author jack.guo 2017-02-12  菜谱列表页面Activity
  */
-public class CookListActivity extends Activity {
+public class CookListActivity extends Activity implements CookRecyclerViewListAdapter.OnItemClickListener{
     private static List<CookListBean.ResultBean.ListBean> cookBeanList = new ArrayList<>();
 
     private CookListBean.ResultBean.ListBean cookBean01;
@@ -36,6 +36,7 @@ public class CookListActivity extends Activity {
     private CookListAdapter mCookListAdapter;
     private CookRecyclerViewListAdapter mRecyclerViewListAdapter;
     private LinearLayout mLoadingLinearLayout, mNoMassageLinearLayout;
+    private CookRecyclerViewListAdapter.OnItemClickListener mItemClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,10 +82,11 @@ public class CookListActivity extends Activity {
                                 } else {
                                     //传过来的就是cookBeanList
                                     cookBeanList = data.getResult().getList();
-                                    mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
+                                    setAdapter(cookBeanList);
                                     mRecyclerView.setAdapter(mRecyclerViewListAdapter);
                                     mLoadingLinearLayout.setVisibility(View.GONE);
                                     mRecyclerView.setVisibility(View.VISIBLE);
+
                                     ToastUtils.showShortToast("classId列表数据加载成功~ 列表数据size：" + cookBeanList.size());
                                 }
                             } catch (Exception e) {
@@ -111,8 +113,8 @@ public class CookListActivity extends Activity {
                                 } else {
                                     //传过来的就是cookBeanList
                                     cookBeanList = data.getResult().getList();
-
-                                    mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
+                                    setAdapter(cookBeanList);
+                                    //mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
                                     mRecyclerView.setAdapter(mRecyclerViewListAdapter);
                                     mLoadingLinearLayout.setVisibility(View.GONE);
                                     mRecyclerView.setVisibility(View.VISIBLE);
@@ -131,4 +133,23 @@ public class CookListActivity extends Activity {
         }
     }
 
+    @Override
+    public void onItemClick(int position) {
+        cookBean01 = cookBeanList.get(position);
+        try {
+            Intent intent = new Intent(CookListActivity.this, RecipeDetailsActivity.class);
+            Bundle b = new Bundle();
+            b.putSerializable("cookBean01", cookBean01);
+            intent.putExtras(b);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setAdapter(List<CookListBean.ResultBean.ListBean> cookBeanList){
+        mRecyclerViewListAdapter = new CookRecyclerViewListAdapter(CookListActivity.this, cookBeanList);
+        mRecyclerViewListAdapter.setItemClickListener(this);
+    }
 }

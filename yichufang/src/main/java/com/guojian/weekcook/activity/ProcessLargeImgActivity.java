@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.guojian.weekcook.ProcessViewPager;
+import com.guojian.weekcook.views.ProcessViewPager;
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.bean.StepViewPagerBean;

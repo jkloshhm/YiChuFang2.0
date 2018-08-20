@@ -1,4 +1,4 @@
-package com.guojian.weekcook;
+package com.guojian.weekcook.views;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
 import com.guojian.weekcook.utils.ImageLoaderWithGlide;
 

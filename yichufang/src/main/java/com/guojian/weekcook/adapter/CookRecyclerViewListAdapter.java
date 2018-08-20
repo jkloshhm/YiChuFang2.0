@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author jack.guo,  Date on 2018/6/12.
  */
-public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecyclerViewListAdapter.MyViewHolder> {
+public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecyclerViewListAdapter.MyViewHolder> implements View.OnClickListener{
 
     private Context mContext;
     private List<CookListBean.ResultBean.ListBean> cookBeanList;
@@ -33,10 +33,10 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //return new MyViewHolder(View.inflate(mContext, R.layout.cook_recycle_view_list_item, null));
-        View view = LayoutInflater.from(mContext).inflate(R.layout.cook_recycle_view_list_item,parent,false);
+        //return new MyViewHolder(View.inflate(mContext, R.layout.cook_recycle_view_list_item, null));//使用这句代码不能match_parent
+        View view = LayoutInflater.from(mContext).inflate(R.layout.cook_recycle_view_list_item, parent, false);
+        view.setOnClickListener(this);
         return new MyViewHolder(view);
-        //return new MyViewHolder(View.inflate(R.layout.cook_recycle_view_list_item, parent,false));
     }
 
     @Override
@@ -54,7 +54,15 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
         holder.mCookMaterial.setText(material);
         String mCookingTimeString = "烹饪时间: " + cookBean.getCookingtime();
         holder.mCookingTime.setText(mCookingTimeString);
-        ImageLoaderWithGlide.loadImage(mContext, cookBean.getPic(), holder.imageView);
+        ImageLoaderWithGlide.loadRoundImage(mContext, cookBean.getPic(), holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener!=null){
+                    mItemClickListener.onItemClick((Integer) v.getTag());
+                }
+            }
+        });
 
     }
 
@@ -71,10 +79,26 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            mCookName = (TextView) itemView.findViewById(R.id.tv_item_cook_name);
-            mCookMaterial = (TextView) itemView.findViewById(R.id.tv_item_cook_material);
-            mCookingTime = (TextView) itemView.findViewById(R.id.tv_item_cook_time);
-            imageView = (ImageView) itemView.findViewById(R.id.iv_item_cook_pic);
+            mCookName = itemView.findViewById(R.id.tv_item_cook_name);
+            mCookMaterial = itemView.findViewById(R.id.tv_item_cook_material);
+            mCookingTime = itemView.findViewById(R.id.tv_item_cook_time);
+            imageView = itemView.findViewById(R.id.iv_item_cook_pic);
         }
+    }
+
+    public OnItemClickListener mItemClickListener;
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mItemClickListener!=null){
+            mItemClickListener.onItemClick((Integer) v.getTag());
+        }
+    }
+
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }
