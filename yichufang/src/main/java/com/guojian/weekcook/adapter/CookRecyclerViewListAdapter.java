@@ -35,12 +35,12 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //return new MyViewHolder(View.inflate(mContext, R.layout.cook_recycle_view_list_item, null));//使用这句代码不能match_parent
         View view = LayoutInflater.from(mContext).inflate(R.layout.cook_recycle_view_list_item, parent, false);
-        view.setOnClickListener(this);
+        //view.setOnClickListener(this);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         CookListBean.ResultBean.ListBean cookBean = cookBeanList.get(position);
         Log.i("guojian", "CookListAdapter-->> cookBean.toString();====" + cookBean.toString());
         holder.mCookName.setText(cookBean.getName());
@@ -59,7 +59,7 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
             @Override
             public void onClick(View v) {
                 if (mItemClickListener!=null){
-                    mItemClickListener.onItemClick((Integer) v.getTag());
+                    mItemClickListener.onItemClick(position);
                 }
             }
         });

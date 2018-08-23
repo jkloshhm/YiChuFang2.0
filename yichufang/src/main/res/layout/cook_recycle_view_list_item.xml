@@ -8,6 +8,7 @@
     android:orientation="vertical"
     app:cardCornerRadius="4dp"
     android:clickable="true"
+    android:focusable="true"
     android:foreground="?android:attr/selectableItemBackgroundBorderless" >
 
 
@@ -54,8 +55,9 @@
             <TextView
                 android:id="@+id/tv_item_cook_material"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:text="红烧茄子"
+                android:gravity="center|start"
                 android:textColor="@color/gray_children_text"
                 android:textSize="12sp"
                 android:layout_weight="1"/>

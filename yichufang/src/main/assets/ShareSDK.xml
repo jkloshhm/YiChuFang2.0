@@ -41,4 +41,5 @@
 <Youtube Enable="false" />
 <Meipai Enable="false" />
 <Telegram Enable="false" />
+<Cmcc Enable="false" />
 </DevInfor>
