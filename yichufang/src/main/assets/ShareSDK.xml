@@ -42,4 +42,5 @@
 <Meipai Enable="false" />
 <Telegram Enable="false" />
 <Cmcc Enable="false" />
+<Reddit Enable="false" />
 </DevInfor>
