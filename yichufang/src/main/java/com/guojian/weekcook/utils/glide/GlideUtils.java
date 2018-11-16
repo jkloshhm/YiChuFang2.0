@@ -38,13 +38,13 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.NONE);
 
                 //圆形
-              // .transforms(new CircleTransform(mContext,2, Color.DKGRAY))//外圈宽度，外圈颜色
+                // .transforms(new CircleTransform(mContext,2, Color.DKGRAY))//外圈宽度，外圈颜色
                 //黑白
-              //  .transforms(new BlackWhiteTransformation());
+                //  .transforms(new BlackWhiteTransformation());
                 //高斯模糊 范围在 0 -- 25 越大模糊程度越高
-              // .transforms(new BlurTransformation(mContext, 25)); // (0 < r <= 25)
+                // .transforms(new BlurTransformation(mContext, 25)); // (0 < r <= 25)
                 //可以使用多种
-              // .transforms(new BlurTransformation(mContext, 25),new CircleTransform(mContext,2, Color.DKGRAY));
+                // .transforms(new BlurTransformation(mContext, 25),new CircleTransform(mContext,2, Color.DKGRAY));
 
         Glide.with(context)
                 .load(imageUrl)
