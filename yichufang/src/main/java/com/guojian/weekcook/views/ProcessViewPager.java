@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.utils.ImageLoaderWithGlide;
+import com.guojian.weekcook.utils.glide.GlideUtils;
 
 import java.util.List;
 
@@ -142,7 +142,7 @@ public class ProcessViewPager extends FrameLayout {
 
             if (!TextUtils.isEmpty(processBean.getPcontent())) {//通过URL时使用ImageLoader加载图片
                 //ImageLoaderUtil.setPicBitmap(imageView, processBean.getProcess_pic());
-                ImageLoaderWithGlide.loadImage(mContext, processBean.getPic(), imageView);
+                GlideUtils.loadImage(mContext, processBean.getPic(), imageView);
             }
             if (!TextUtils.isEmpty(processBean.getPcontent())) {//有标题数据才显示
                 labelTitle.setText(processBean.getPcontent().replace("<br />", ""));

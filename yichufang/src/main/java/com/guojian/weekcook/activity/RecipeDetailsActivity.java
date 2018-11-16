@@ -32,7 +32,7 @@ import com.guojian.weekcook.bean.StepViewPagerBean;
 import com.guojian.weekcook.db.DBServices;
 import com.guojian.weekcook.db.MyDBServiceUtils;
 import com.guojian.weekcook.utils.GetBitmapFromSdCardUtil;
-import com.guojian.weekcook.utils.ImageLoaderWithGlide;
+import com.guojian.weekcook.utils.glide.GlideUtils;
 import com.guojian.weekcook.utils.ScreenShotUtils;
 
 import java.io.File;
@@ -143,7 +143,7 @@ public class RecipeDetailsActivity extends Activity implements MyScrollView.OnSc
     private void setUpViews() {
         mTitleName.setText(cookBean.getName());
         mName.setText(cookBean.getName());
-        ImageLoaderWithGlide.loadImage(mContext, cookBean.getPic(), mDetailsImage);
+        GlideUtils.loadImage(mContext, cookBean.getPic(), mDetailsImage);
         String mContentString = cookBean.getContent().replace("<br />", "");
         mContent.setText(mContentString);
         String mPeopleNumString = "用餐人数: " + cookBean.getPeoplenum();

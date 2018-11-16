@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.utils.ImageLoaderWithGlide;
+import com.guojian.weekcook.utils.glide.GlideUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -310,7 +310,7 @@ public class AutoPlayingViewPager extends FrameLayout {
                 });
             }
             if (!TextUtils.isEmpty(cookBean.getPic())) {//通过URL时使用ImageLoader加载图片
-                ImageLoaderWithGlide.loadImage(mContext, cookBean.getPic(), imageView);
+                GlideUtils.loadImage(mContext, cookBean.getPic(), imageView);
             }
             if (!TextUtils.isEmpty(cookBean.getName())) {//有标题数据才显示
                 labelTitle.setText(cookBean.getName());

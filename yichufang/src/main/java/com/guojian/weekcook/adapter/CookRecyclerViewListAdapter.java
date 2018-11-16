@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.utils.ImageLoaderWithGlide;
+import com.guojian.weekcook.utils.glide.GlideUtils;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
         holder.mCookMaterial.setText(material);
         String mCookingTimeString = "烹饪时间: " + cookBean.getCookingtime();
         holder.mCookingTime.setText(mCookingTimeString);
-        ImageLoaderWithGlide.loadRoundImage(mContext, cookBean.getPic(), holder.imageView);
+        GlideUtils.loadRoundImage(mContext, cookBean.getPic(), holder.imageView);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +87,7 @@ public class CookRecyclerViewListAdapter extends RecyclerView.Adapter<CookRecycl
     }
 
     public OnItemClickListener mItemClickListener;
+
     public interface OnItemClickListener{
         void onItemClick(int position);
     }

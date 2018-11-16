@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.utils.ImageLoaderWithGlide;
+import com.guojian.weekcook.utils.glide.GlideUtils;
 
 import java.util.List;
 
@@ -70,7 +70,7 @@ public class CookListAdapter extends BaseAdapter {
         holder.mCookMaterial.setText(material);
         String mCookingTimeString = "烹饪时间: " + cookBean.getCookingtime();
         holder.mCookingTime.setText(mCookingTimeString);
-        ImageLoaderWithGlide.loadImage(mContext, cookBean.getPic(), holder.imageView);
+        GlideUtils.loadImage(mContext, cookBean.getPic(), holder.imageView);
         return convertView;
     }
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.guojian.weekcook.R;
 import com.guojian.weekcook.bean.CookListBean;
-import com.guojian.weekcook.utils.ImageLoaderWithGlide;
+import com.guojian.weekcook.utils.glide.GlideUtils;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class ProcessAdapter extends BaseAdapter {
         holder.pStep.setText(steps);
         String processString = processBean.getPcontent().replace("<br />","");
         holder.pContent.setText(processString);
-        ImageLoaderWithGlide.loadImage(mContext,processBean.getPic(),holder.pImageView);
+        GlideUtils.loadImage(mContext,processBean.getPic(),holder.pImageView);
 
         return convertView;
     }
